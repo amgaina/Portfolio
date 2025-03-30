@@ -8,7 +8,6 @@ Visit the live site: [abhisekamgain.com.np](https://abhisekamgain.com.np)
 - **Modern UI/UX** - Clean, professional design with smooth animations
 - **Fully Responsive** - Optimized for all devices (mobile, tablet, desktop)
 - **Performance Optimized** - Fast loading with Next.js optimizations
-- **Dark/Light Mode** - Automatic theme switching based on system preferences
 - **Project Showcase** - Interactive project cards with detailed views
 - **Contact Form** - Functional contact system with email integration
 
