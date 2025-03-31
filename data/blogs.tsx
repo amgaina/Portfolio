@@ -6,7 +6,7 @@ export const blogs = [
     date: "October 3, 2023",
     author: "Abhishek Amgain",
     categories: ["Web Development", "Project Management", "Leadership"],
-    readTime: "8 min read",
+    readTime: "4 min read",
     image: "/abhishek_led.png",
     content: `
   <p>At ULM's "Everyone Has a Story" Symposium on October 3rd, 2023, I was honored to deliver a keynote presentation titled <strong>"Blazing Trails to Success in Web Development and Mobile Development."</strong> For sixty minutes, I shared my professional journey - the challenges, breakthroughs, and lessons learned while navigating the tech industry.</p>
@@ -38,7 +38,7 @@ export const blogs = [
     date: "October 20, 2024",
     author: "Abhishek Amgain",
     categories: ["Biomedical Research", "Data Analysis", "Healthcare"],
-    readTime: "10 min read",
+    readTime: "5 min read",
     image: "/abhishek_braid.png",
     content: `
       <p>The Biomedical Research and Industry Day at ULM on October 20th, 2024 wasn't just another academic conference - it was a masterclass in translational research. The crisp autumn air carried a sense of urgency as researchers discussed how to bridge the gap between lab discoveries and patient outcomes.</p>
@@ -76,7 +76,7 @@ export const blogs = [
     date: "March 15, 2025",
     author: "Abhishek Amgain",
     categories: ["Award", "Networking", "Education"],
-    readTime: "7 min read",
+    readTime: "4 min read",
     image: "/abhishek.png",
     content: `
   <div class="mb-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-center border border-purple-200 dark:border-purple-800">
