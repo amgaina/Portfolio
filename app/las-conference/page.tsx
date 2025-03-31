@@ -1,7 +1,7 @@
 "use client"
 import { motion } from "framer-motion"
 import { ArrowLeft, Calendar, MapPin, Trophy, Presentation, Users, Lightbulb } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 import Link from "next/link"
 
 export default function LASConferencePage() {
@@ -104,7 +104,7 @@ export default function LASConferencePage() {
             transition={{ duration: 0.6 }}
           >
             <img
-              src="/placeholder.svg?height=600&width=1200"
+              src="./placeholder.svg"
               alt="Louisiana Academy of Sciences Conference"
               className="w-full h-auto"
             />
@@ -212,4 +212,3 @@ export default function LASConferencePage() {
     </main>
   )
 }
-

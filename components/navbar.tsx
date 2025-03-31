@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -164,14 +164,10 @@ export default function Navbar() {
 
       <style jsx global>{`
         #home, #about, #skills, #education, #experience, 
-    #projects, #research, #papers, #blogs, #contact {
+        #projects, #research, #papers, #blogs, #contact {
           scroll-margin-top: 100px;
         }
       `}</style>
     </>
   )
 }
-
-
-
-

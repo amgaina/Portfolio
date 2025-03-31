@@ -1,8 +1,8 @@
 "use client"
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "./ui/card"
+import { Button } from "./ui/button"
 import { ChevronRight, Github, ExternalLink, Award } from "lucide-react"
 import {
   Dialog,
@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "./ui/dialog"
 import Image from "next/image"
 
 export default function Research() {
@@ -19,13 +19,13 @@ export default function Research() {
     {
       title: "LAS Conference Award Winner",
       shortDescription: "Won the best oral presentation for my IP subnetting teaching tool.",
-      image: "/las_conference.png",
+      image: "./las_conference.png",
       eventUrl: "https://sites.google.com/selu.edu/las-2025-annual-meeting/home"
     },
     {
       title: "Biomedical Research Day 2024",
       shortDescription: "Presented cancer disparities research using Python data analysis.",
-      image: "/braid_conference.png",
+      image: "./braid_conference.png",
       eventUrl: "https://www.lsuhs.edu/centers/cardiovascular-diseases-and-sciences/events/braid"
     }
   ]

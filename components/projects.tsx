@@ -1,18 +1,18 @@
 "use client"
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "./ui/card"
+import { Button } from "./ui/button"
+import { Badge } from "./ui/badge"
 import { Github, ExternalLink, X } from "lucide-react"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "./ui/dialog"
 import Image from "next/image"
-import placeholder from '/public/placeholder.svg';
+import placeholder from '../public/placeholder.svg';
 
 export default function Projects() {
   const [visibleProjects, setVisibleProjects] = useState(6)
@@ -23,7 +23,7 @@ export default function Projects() {
       title: "Amazon Sentiment Analysis",
       dialog_description: "This is a Natural Language Processing (NLP)-based web application designed to analyze Amazon product feedback on the Amazon Echo product. The application classifies feedback as positive or negative, helping users gauge the overall sentiment of product reviews. Built using Flask, NLTK, and XGBoost, this tool utilizes advanced machine learning and text-processing techniques to accurately interpret customer experiences.",
       description: "A NLP based web app that classifies Amazon Echo product reviews as positive/negative using machine learning.",
-      image: "/Amazon_sentiment.png",
+      image: "./Amazon_sentiment.png",
       tags: ["Python", "Flask", "NLTK", "XGBoost", "Machine Learning", "NLP"],
       github: "https://github.com/amgaina/Amazon_Sentiment_Analysis"
     },
@@ -31,7 +31,7 @@ export default function Projects() {
       title: "House Price Prediction",
       dialog_description: "This project is a Flask-based web application for predicting house prices in the Bangalore area. The application uses a linear regression machine learning algorithm to predict house prices based on features such as the number of bathrooms, bedrooms, area in square feet, and location. The model achieves an accuracy of approximately 88-92% in predicting house prices.",
       description: "Flask web app that predicts Bangalore house prices using linear regression with 88-92% accuracy based on location, area, and room features.",
-      image: "/house_price_prediction.png",
+      image: "./house_price_prediction.png",
       tags: ["Python", "Flask", "Machine Learning", "Linear Regression", "scikit-learn", "Bootstrap"],
       github: "https://github.com/amgaina/House-Price-Prediction",
     },
@@ -39,7 +39,7 @@ export default function Projects() {
       title: "Placeaway - AI-Powered Trip Planner",
       dialog_description: "Placeaway revolutionizes travel planning with AI-powered personalized itineraries tailored to your preferences and budget. The platform offers real-time travel assistance through an intuitive chat interface, enabling dynamic itinerary adjustments and smart recommendations. With robust features like budget tracking, multi-user collaboration, and secure authentication, Placeaway simplifies trip planning from start to finish.",
       description: "Modern travel app using AI to generate personalized itineraries with real-time assistance, budget tracking, and interactive planning.",
-      image: "/placeaway_logo.png",
+      image: "./placeaway_logo.png",
       tags: [
         "Next.js 14",
         "TypeScript",
@@ -54,7 +54,7 @@ export default function Projects() {
       title: "Google Stock Price Pattern Prediction",
       dialog_description: "Stock price prediction is a crucial area in financial markets. This project focuses on predicting Google stock prices using an LSTM and RNN model. The model leverages historical stock price data to forecast future prices.",
       description: "LSTM and RNN model that forecasts Google stock prices with 79% accuracy using historical time-series data.",
-      image: "/stock_price_prediction.png",
+      image: "./stock_price_prediction.png",
       tags: [
         "Python",
         "TensorFlow/Keras",
@@ -69,7 +69,7 @@ export default function Projects() {
       title: "Movie Recommender System",
       dialog_description: "This project is a content based Movie Recommender System developed using Scikit Learn, Python, Pandas, Matplotlib, Count Vectorizer, and Cosine Similarity. The system recommends movies based on a given movie title by analyzing the similarity between movie plots.",
       description: "Content-based recommender system that suggests similar movies by analyzing plot similarities using cosine similarity and NLP techniques.",
-      image: "/movie_recommendation.png",
+      image: "./movie_recommendation.png",
       tags: [
         "Python",
         "Scikit-Learn",
@@ -84,7 +84,7 @@ export default function Projects() {
       title: "Grant Application Management System",
       dialog_description: "A streamlined platform for the Emerging Scholars program, enabling students to submit applications and faculty to manage projects. Features include secure authentication, application tracking, and decision management. Built with Spring Boot, React.js, and MySQL for robust performance.",
       description: "Streamlined application submission platform for Emerging Scholars program at ULM Computer Science Department.",
-      image: "/grant_app_management.png",
+      image: "./grant_app_management.png",
       tags: [
         "Spring Boot",
         "Spring Security",

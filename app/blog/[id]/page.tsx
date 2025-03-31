@@ -1,10 +1,10 @@
 "use client"
 import { notFound } from 'next/navigation'
-import { blogs } from '@/data/blogs'
+import { blogs } from '../../../data/blogs'
 import { Calendar, User, Clock, ArrowLeft, ThumbsUp, ThumbsDown } from 'lucide-react'
 import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Badge } from '../../../components/ui/badge'
+import { Button } from '../../../components/ui/button'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { use } from 'react';
@@ -144,7 +144,7 @@ export default function BlogDetail({ params }: { params: Promise<{ id: string }>
                         viewport={{ once: true }}
                     >
                         <Image
-                            src={blog.image || "/placeholder.svg"}
+                            src={blog.image || "./placeholder.svg"}
                             alt={blog.title}
                             width={500}
                             height={300}
@@ -172,7 +172,7 @@ export default function BlogDetail({ params }: { params: Promise<{ id: string }>
                     >
                         <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white dark:border-slate-700 shadow-md">
                             <Image
-                                src="/abhishek_about.png"
+                                src="./abhishek_about.png"
                                 alt={blog.author}
                                 width={96}
                                 height={96}
@@ -240,7 +240,7 @@ export default function BlogDetail({ params }: { params: Promise<{ id: string }>
                                 <div className="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all h-full">
                                     <div className="relative h-48 overflow-hidden">
                                         <Image
-                                            src={relatedBlog.image || "/placeholder.svg"}
+                                            src={relatedBlog.image || "./placeholder.svg"}
                                             alt={relatedBlog.title}
                                             width={600}
                                             height={400}

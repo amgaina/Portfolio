@@ -1,7 +1,7 @@
 "use client"
 import { motion } from "framer-motion"
 import { ArrowLeft, Calendar, MapPin, Users, PieChart, Microscope, GraduationCap } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 import Link from "next/link"
 
 export default function BRAIDConferencePage() {
@@ -104,7 +104,7 @@ export default function BRAIDConferencePage() {
             transition={{ duration: 0.6 }}
           >
             <img
-              src="/placeholder.svg?height=600&width=1200"
+              src="./placeholder.svg"
               alt="Biomedical Research and Industry Day Conference"
               className="w-full h-auto"
             />
@@ -213,4 +213,3 @@ export default function BRAIDConferencePage() {
     </main>
   )
 }
-

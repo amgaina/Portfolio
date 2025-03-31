@@ -1,7 +1,7 @@
 "use client"
 import { motion } from "framer-motion"
 import { ArrowLeft, Calendar, MapPin, Lightbulb, Code, GraduationCap, Rocket } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -15,7 +15,7 @@ export default function AboutPage() {
             icon: <Lightbulb className="h-6 w-6" />,
             content:
                 'Born and raised in Nepal, I got my first computer in grade 8. At first, I just played games—but soon, I became obsessed with how things worked. Why did the cursor move when I dragged the mouse? How did buttons on the screen "do" things? That curiosity led me to tear apart every piece of software I could find, even if I barely understood it.',
-            image: "/abhishek_about1.png",
+            image: "./abhishek_about1.png",
             imageAlt: "Childhood in Nepal",
         },
         {
@@ -26,7 +26,7 @@ export default function AboutPage() {
             icon: <Code className="h-6 w-6" />,
             content:
                 "At Oxford College of Engineering and Management, I learned QBASIC, HTML, and CSS. I'll never forget the rush I felt when I wrote my first program—a simple addition calculator. It was clunky, but I made it work. That tiny success hooked me. Soon after, I built a full calculator with HTML, CSS, and JavaScript. At the time, it felt like I'd built a spaceship.",
-            image: "/abhishek_about2.png",
+            image: "./abhishek_about2.png",
             imageAlt: "First coding experiences",
         },
         {
@@ -37,7 +37,7 @@ export default function AboutPage() {
             icon: <GraduationCap className="h-6 w-6" />,
             content:
                 "Like many students, I dreamed of studying abroad. Thanks to a full scholarship at the University of Louisiana at Monroe, I got my chance. Initially, I sharpened my software engineering and data analysis skills, working on research projects with professors. But my real turning point came in March 2023.",
-            image: "/abhishek_about3.png",
+            image: "./abhishek_about3.png",
             imageAlt: "Moving to the United States",
         },
         {
@@ -48,7 +48,7 @@ export default function AboutPage() {
             icon: <Rocket className="h-6 w-6" />,
             content:
                 "When OpenAI released GPT-4, something clicked. Seeing AI generate human-like text, solve problems, and even code was mind-blowing. Around the same time, I dove into Tesla's Optimus Robot and Stable Diffusion. The idea that machines could learn, create, and adapt—not just follow rigid code—rewired my ambitions.",
-            image: "/abhishek_about4.png",
+            image: "./abhishek_about4.png",
             imageAlt: "AI and machine learning exploration",
         },
     ]
@@ -115,7 +115,7 @@ export default function AboutPage() {
                             transition={{ duration: 0.6, delay: 0.2 }}
                             variants={fadeInUp}
                         >
-                            {/* Image - Removed flashing animation */}
+                            {/* Image */}
                             <div className="md:w-2/5">
                                 <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
                                     <Image

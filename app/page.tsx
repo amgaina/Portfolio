@@ -1,14 +1,14 @@
-import Hero from "@/components/hero"
-import About from "@/components/about"
-import Skills from "@/components/skills"
-import Education from "@/components/education"
-import Experience from "@/components/experience"
-import Projects from "@/components/projects"
-import Research from "@/components/research"
-import Contact from "@/components/contact"
-import Blogs from "@/components/blogs"
-import Papers from "@/components/papers"
-import Navbar from "@/components/navbar"
+import Hero from "../components/hero"
+import About from "../components/about"
+import Skills from "../components/skills"
+import Education from "../components/education"
+import Experience from "../components/experience"
+import Projects from "../components/projects"
+import Research from "../components/research"
+import Contact from "../components/contact"
+import Blogs from "../components/blogs"
+import Papers from "../components/papers"
+import Navbar from "../components/navbar"
 
 export default function Home() {
   return (
@@ -43,4 +43,3 @@ export default function Home() {
     </main>
   )
 }
-

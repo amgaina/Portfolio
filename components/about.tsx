@@ -1,7 +1,7 @@
 "use client"
 import { motion } from "framer-motion"
 import { Github, Linkedin, Instagram, Mail } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button" // Changed to relative path
 import Link from "next/link"
 import Image from "next/image"
 
@@ -37,7 +37,7 @@ export default function About() {
           >
             <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-xl">
               <Image
-                src="/abhishek_about.png"
+                src="./abhishek_about.png" // Changed to relative path
                 alt="Abhishek Amgain"
                 width={900}
                 height={400}
@@ -68,7 +68,7 @@ export default function About() {
             </p>
 
             <p className="text-gray-700 dark:text-gray-300 mb-6">
-              <Link href="/about-me" className="text-primary hover:underline">
+              <Link href="./about-me" className="text-primary hover:underline">
                 Learn more about my journey
               </Link>{" "}
               from QBASIC to machine learning.
@@ -95,4 +95,3 @@ export default function About() {
     </section>
   )
 }
-

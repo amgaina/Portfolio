@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import { motion } from "framer-motion"
 import { ArrowDown } from "lucide-react"
 import Image from "next/image"
@@ -8,23 +8,16 @@ import Image from "next/image"
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(false)
 
-  // Check if device is mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
 
-    // Initial check
     checkMobile()
-
-    // Add event listener for window resize
     window.addEventListener("resize", checkMobile)
-
-    // Cleanup
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-  // Smooth scroll function
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
@@ -40,7 +33,6 @@ export default function Hero() {
       id="home"
       className="min-h-screen flex flex-col items-center justify-center relative bg-white text-slate-900 px-4 py-16 sm:py-0"
     >
-      {/* Subtle pattern overlay */}
       <div
         className="absolute inset-0 opacity-5 pointer-events-none"
         style={{
@@ -53,7 +45,6 @@ export default function Hero() {
 
       <div className="container mx-auto z-10 max-w-5xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Image - Moved to top on mobile */}
           <div className="order-1 flex justify-center md:order-2 md:justify-end mb-6 md:mb-0">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -63,7 +54,7 @@ export default function Hero() {
             >
               <div className="w-40 h-40 xs:w-48 xs:h-48 sm:w-52 sm:h-52 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-6 sm:border-8 border-white shadow-xl bg-white">
                 <Image
-                  src="/abhishek_home.png"
+                  src="./abhishek_home.png"
                   alt="Abhishek Amgain"
                   fill
                   priority
@@ -80,7 +71,6 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Text Content */}
           <div className="order-2 md:order-1 text-center md:text-left">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 tracking-tight">
@@ -132,4 +122,3 @@ export default function Hero() {
     </section>
   )
 }
-

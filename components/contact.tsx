@@ -1,11 +1,11 @@
 "use client"
 import { useState, FormEvent, ChangeEvent } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import { useToast } from "@/hooks/use-toast"
+import { Card, CardContent } from "./ui/card"
+import { Input } from "./ui/input"
+import { Textarea } from "./ui/textarea"
+import { Button } from "./ui/button"
+import { useToast } from "../hooks/use-toast"
 import { MapPin, Mail, Phone, Send, Loader2, CheckCircle } from "lucide-react"
 import Image from "next/image"
 
@@ -64,7 +64,6 @@ export default function Contact() {
           phone: "",
           message: "",
         })
-        // Hide the success message after 5 seconds
         setTimeout(() => setShowSuccess(false), 5000)
       } else {
         throw new Error(result.message || "Failed to send message")
@@ -113,7 +112,6 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left column (contact info) remains unchanged */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -137,19 +135,18 @@ export default function Contact() {
                 </div>
                 <div className="mt-8 relative w-full h-48 rounded-lg overflow-hidden">
                   <Image
-                    src="/contact_logo.png"
+                    src="./contact_logo.png"
                     alt="Contact Globe"
-                    width={600}       // Set width as per your query parameter
-                    height={400}      // Set height as per your query parameter
-                    className="w-full h-full object-contain"  // Remove w-full h-full when using explicit dimensions
-                    quality={100}     // Optional: adjust image quality (1-100)
+                    width={600}
+                    height={400}
+                    className="w-full h-full object-contain"
+                    quality={100}
                   />
                 </div>
               </CardContent>
             </Card>
           </motion.div>
 
-          {/* Right column (form) */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -160,7 +157,6 @@ export default function Contact() {
             <Card className="h-full">
               <CardContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-6 relative">
-                  {/* Form fields remain unchanged */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block mb-2 font-medium">
@@ -237,7 +233,6 @@ export default function Contact() {
                     )}
                   </Button>
 
-                  {/* Success message popup */}
                   <AnimatePresence>
                     {showSuccess && (
                       <motion.div

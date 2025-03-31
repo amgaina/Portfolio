@@ -1,10 +1,10 @@
 "use client"
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "./ui/card"
+import { Badge } from "./ui/badge"
 import { Calendar, Briefcase } from "lucide-react"
 import Image from "next/image"
-import placeholderSvg from '/public/placeholder.svg';
+import placeholderSvg from '../public/placeholder.svg';
 
 export default function Experience() {
   const experiences = [
@@ -31,7 +31,7 @@ export default function Experience() {
         "Data Analysis",
         "Microsoft Power App",
       ],
-      logo: "/led_logo.png?height=200&width=200",
+      logo: "./led_logo.png",
     },
     {
       title: "Data Analyst Intern",
@@ -43,7 +43,7 @@ export default function Experience() {
         "Created interactive dashboards and reports using Tableau and PowerBI, improving the ability to visualize key metrics and communicate findings to stakeholders.",
       ],
       skills: ["Tableau", "Alteryx", "Microsoft 365", "Data Analysis", "Data Manipulation"],
-      logo: "/qatar_logo.png?height=200&width=200",
+      logo: "./qatar_logo.png",
     },
     {
       title: "Tutor",
@@ -55,7 +55,7 @@ export default function Experience() {
         "Organized in-person coding workshops at various high schools in the Monroe Area.",
       ],
       skills: ["Teaching", "Mentorship", "Workshop Organization", "Java", "Python", "Presentation Skills"],
-      logo: "/trio_logo.png?height=200&width=200",
+      logo: "./trio_logo.png",
     },
   ]
 
@@ -90,8 +90,8 @@ export default function Experience() {
                         <Image
                           src={exp.logo || placeholderSvg}
                           alt={exp.company || 'Company logo'}
-                          width={64} // 4 * 16 = 64px
-                          height={64} // 4 * 16 = 64px
+                          width={64}
+                          height={64}
                           className="w-16 h-16 object-contain"
                           quality={100}
                         />
@@ -140,4 +140,3 @@ export default function Experience() {
     </section>
   )
 }
-

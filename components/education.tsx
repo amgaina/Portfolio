@@ -1,9 +1,9 @@
 "use client"
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "./ui/card"
 import { GraduationCap, MapPin, Calendar, Code } from "lucide-react"
 import Image from "next/image"
-import placeholder from '/public/placeholder.svg';
+import placeholder from '../public/placeholder.svg';
 
 export default function Education() {
   const educationData = [
@@ -13,7 +13,7 @@ export default function Education() {
       period: "2019-2021",
       location: "Gaindakot - 02, Nepal",
       skills: ["QBASIC", "C", "HTML", "CSS", "JavaScript", "Microsoft Office Suite"],
-      logo: "/oxford_logo.png?height=200&width=200",
+      logo: "./oxford_logo.png",
     },
     {
       institution: "University of Louisiana at Monroe",
@@ -21,7 +21,7 @@ export default function Education() {
       period: "2022 - current",
       location: "Monroe, LA",
       focus: ["AI and Machine Learning", "Mathematics and Statistics", "Software Engineering"],
-      logo: "/ulm_logo.png?height=200&width=200",
+      logo: "./ulm_logo.png",
     },
   ]
 
@@ -55,10 +55,10 @@ export default function Education() {
                       <Image
                         src={edu.logo || placeholder}
                         alt={edu.institution}
-                        width={48}  // Match your w-12 (12 * 4 = 48px)
-                        height={48} // Match your h-12
-                        className="object-contain" // w-12 h-12 not needed when using explicit dimensions
-                        quality={100} // Optional for crisp logos
+                        width={48}
+                        height={48}
+                        className="object-contain"
+                        quality={100}
                       />
                     </div>
                     <div>
@@ -121,4 +121,3 @@ export default function Education() {
     </section>
   )
 }
-
