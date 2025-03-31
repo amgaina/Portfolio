@@ -10,6 +10,12 @@ import Image from 'next/image'
 import { use } from 'react';
 import { useState } from 'react';
 
+export async function generateStaticParams() {
+    const blogIds = blogs.map(blog => blog.id);
+    return blogIds.map(id => ({
+        id: id.toString(),
+    }));
+}
 
 export default function BlogDetail({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params)
