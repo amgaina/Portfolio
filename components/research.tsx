@@ -1,17 +1,8 @@
 "use client"
-import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
-import { ChevronRight, Github, ExternalLink, Award } from "lucide-react"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog"
+import {  ExternalLink, Award } from "lucide-react"
 import Image from "next/image"
 
 export default function Research() {
