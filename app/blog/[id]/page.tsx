@@ -1,4 +1,3 @@
-"use client"
 import { notFound } from 'next/navigation'
 import { blogs } from '../../../data/blogs'
 import { Calendar, User, Clock, ArrowLeft, ThumbsUp, ThumbsDown } from 'lucide-react'
