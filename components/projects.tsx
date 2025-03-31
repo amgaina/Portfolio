@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import Image from "next/image"
+import placeholder from '/public/placeholder.svg';
 
 export default function Projects() {
   const [visibleProjects, setVisibleProjects] = useState(6)
@@ -140,10 +141,13 @@ export default function Projects() {
               <Card className="overflow-hidden h-full hover:shadow-xl transition-all group">
                 <CardContent className="p-0 h-full flex flex-col">
                   <div className="relative overflow-hidden h-48">
-                    <img
-                      src={project.image || "/placeholder.svg"}
+                    <Image
+                      src={project.image || placeholder}
                       alt={project.title}
-                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                      fill
+                      className="object-contain transition-transform duration-500 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      priority={false}
                     />
                     <div className="absolute inset-0 bg-primary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                       <Button size="icon" variant="secondary" className="rounded-full" asChild>

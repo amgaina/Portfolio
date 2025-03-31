@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { Github, Linkedin, Instagram, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function About() {
   const socialLinks = [
@@ -35,7 +36,13 @@ export default function About() {
             className="relative"
           >
             <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-xl">
-              <img src="/abhishek_about.png" alt="Abhishek Amgain" className="w-full h-full object-cover" />
+              <Image
+                src="/abhishek_about.png"
+                alt="Abhishek Amgain"
+                width={900}
+                height={400}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="absolute -bottom-5 -right-5 w-32 h-32 bg-primary rounded-full flex items-center justify-center text-white font-bold text-lg">
               Learning

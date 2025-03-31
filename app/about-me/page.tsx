@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { ArrowLeft, Calendar, MapPin, Lightbulb, Code, GraduationCap, Rocket } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function AboutPage() {
     const journeySteps = [
@@ -117,9 +118,10 @@ export default function AboutPage() {
                             {/* Image - Removed flashing animation */}
                             <div className="md:w-2/5">
                                 <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
-                                    <img
+                                    <Image
                                         src={step.image}
                                         alt={step.imageAlt}
+                                        fill
                                         className="w-full h-full object-fill"
                                     />
                                 </div>

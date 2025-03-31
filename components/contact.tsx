@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { MapPin, Mail, Phone, Send, Loader2, CheckCircle } from "lucide-react"
+import Image from "next/image"
 
 interface FormData {
   name: string
@@ -135,10 +136,13 @@ export default function Contact() {
                   ))}
                 </div>
                 <div className="mt-8 relative w-full h-48 rounded-lg overflow-hidden">
-                  <img
-                    src="/contact_logo.png?height=400&width=600"
+                  <Image
+                    src="/contact_logo.png"
                     alt="Contact Globe"
-                    className="w-full h-full object-contain"
+                    width={600}       // Set width as per your query parameter
+                    height={400}      // Set height as per your query parameter
+                    className="w-full h-full object-contain"  // Remove w-full h-full when using explicit dimensions
+                    quality={100}     // Optional: adjust image quality (1-100)
                   />
                 </div>
               </CardContent>

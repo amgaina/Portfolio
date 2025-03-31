@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { ArrowLeft, Calendar, MapPin, Lightbulb, Code, GraduationCap, Rocket } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function AboutPage() {
     const journeySteps = [
@@ -118,10 +119,12 @@ export default function AboutPage() {
                             <div className="md:w-2/5">
                                 <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
                                     <div className="absolute inset-0 bg-slate-200 animate-pulse"></div>
-                                    <img
-                                        src={step.image || `/placeholder.svg?height=600&width=800&text=${encodeURIComponent(step.title)}`}
+                                    <Image
+                                        src={step.image || '/placeholder.svg'}
                                         alt={step.imageAlt}
+                                        fill
                                         className="w-full h-full object-cover"
+                                        unoptimized
                                     />
                                 </div>
                             </div>

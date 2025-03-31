@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { ArrowDown } from "lucide-react"
+import Image from "next/image"
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(false)
@@ -61,16 +62,16 @@ export default function Hero() {
               className="relative"
             >
               <div className="w-40 h-40 xs:w-48 xs:h-48 sm:w-52 sm:h-52 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-6 sm:border-8 border-white shadow-xl bg-white">
-                <img
+                <Image
                   src="/abhishek_home.png"
                   alt="Abhishek Amgain"
-                  className="w-full h-full object-contain object-center"
+                  fill
+                  priority
+                  className="object-contain object-center"
                   style={{
-                    imageRendering: "crisp-edges",
-                    maxWidth: "100%",
-                    maxHeight: "100%",
+                    imageRendering: "crisp-edges"
                   }}
-                  loading="eager"
+                  unoptimized
                 />
               </div>
               <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 bg-primary text-white text-xs sm:text-sm font-medium py-1.5 px-3 sm:py-2 sm:px-4 rounded-full shadow-lg">

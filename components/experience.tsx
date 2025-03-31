@@ -3,6 +3,8 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, Briefcase } from "lucide-react"
+import Image from "next/image"
+import placeholderSvg from '/public/placeholder.svg';
 
 export default function Experience() {
   const experiences = [
@@ -85,10 +87,13 @@ export default function Experience() {
                   <div className="grid grid-cols-1 md:grid-cols-4">
                     <div className="bg-primary/10 p-6 flex flex-col justify-center items-center md:items-start">
                       <div className="w-20 h-20 rounded-full overflow-hidden bg-white flex items-center justify-center mb-4">
-                        <img
-                          src={exp.logo || "/placeholder.svg"}
-                          alt={exp.company}
+                        <Image
+                          src={exp.logo || placeholderSvg}
+                          alt={exp.company || 'Company logo'}
+                          width={64} // 4 * 16 = 64px
+                          height={64} // 4 * 16 = 64px
                           className="w-16 h-16 object-contain"
+                          quality={100}
                         />
                       </div>
                       <h3 className="text-xl font-bold text-center md:text-left">{exp.company}</h3>

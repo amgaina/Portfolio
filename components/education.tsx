@@ -2,6 +2,8 @@
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { GraduationCap, MapPin, Calendar, Code } from "lucide-react"
+import Image from "next/image"
+import placeholder from '/public/placeholder.svg';
 
 export default function Education() {
   const educationData = [
@@ -50,10 +52,13 @@ export default function Education() {
                 <CardContent className="p-0">
                   <div className="bg-primary/10 p-6 flex items-center">
                     <div className="w-16 h-16 rounded-full overflow-hidden bg-white flex items-center justify-center mr-4 flex-shrink-0">
-                      <img
-                        src={edu.logo || "/placeholder.svg"}
+                      <Image
+                        src={edu.logo || placeholder}
                         alt={edu.institution}
-                        className="w-12 h-12 object-contain"
+                        width={48}  // Match your w-12 (12 * 4 = 48px)
+                        height={48} // Match your h-12
+                        className="object-contain" // w-12 h-12 not needed when using explicit dimensions
+                        quality={100} // Optional for crisp logos
                       />
                     </div>
                     <div>

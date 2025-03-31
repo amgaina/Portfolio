@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { useRef, useState, useEffect } from "react"
 import { blogs } from "@/data/blogs"
+import Image from "next/image"
+import placeholder from '/public/placeholder.svg';
 
 export default function BlogSection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -19,12 +21,12 @@ export default function BlogSection() {
   const checkScroll = () => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    
+
     setCanScrollLeft(container.scrollLeft > 0);
     setCanScrollRight(
       container.scrollLeft < container.scrollWidth - container.clientWidth - 10
     );
-    
+
     // Calculate active index based on scroll position
     const cardWidth = container.scrollWidth / blogs.length;
     const newIndex = Math.round(container.scrollLeft / cardWidth);
@@ -38,7 +40,7 @@ export default function BlogSection() {
       // Initial check
       checkScroll();
     }
-    
+
     return () => {
       if (container) {
         container.removeEventListener('scroll', checkScroll);
@@ -49,10 +51,10 @@ export default function BlogSection() {
   const scrollTo = (direction: 'left' | 'right') => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    
+
     const cardWidth = container.querySelector('.blog-card')?.clientWidth || 0;
     const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
-    
+
     container.scrollBy({
       left: scrollAmount,
       behavior: 'smooth'
@@ -62,7 +64,7 @@ export default function BlogSection() {
   const scrollToCard = (index: number) => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    
+
     const cards = container.querySelectorAll('.blog-card');
     if (cards[index]) {
       cards[index].scrollIntoView({
@@ -93,9 +95,9 @@ export default function BlogSection() {
         <div className="relative">
           {/* Navigation Buttons */}
           <div className="hidden md:block absolute -left-5 top-1/2 -translate-y-1/2 z-10">
-            <Button 
-              variant="outline" 
-              size="icon" 
+            <Button
+              variant="outline"
+              size="icon"
               className={cn(
                 "rounded-full bg-white shadow-lg hover:bg-slate-50 border-slate-200",
                 !canScrollLeft && "opacity-50 cursor-not-allowed"
@@ -106,11 +108,11 @@ export default function BlogSection() {
               <ChevronLeft className="h-5 w-5" />
             </Button>
           </div>
-          
+
           <div className="hidden md:block absolute -right-5 top-1/2 -translate-y-1/2 z-10">
-            <Button 
-              variant="outline" 
-              size="icon" 
+            <Button
+              variant="outline"
+              size="icon"
               className={cn(
                 "rounded-full bg-white shadow-lg hover:bg-slate-50 border-slate-200",
                 !canScrollRight && "opacity-50 cursor-not-allowed"
@@ -126,14 +128,14 @@ export default function BlogSection() {
           <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white dark:from-slate-800 to-transparent z-10"></div>
 
           {/* Scroll Container */}
-          <div 
+          <div
             ref={scrollContainerRef}
             className="flex overflow-x-auto pb-8 -mx-4 px-4 snap-x snap-mandatory hide-scrollbar"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             <div className="flex space-x-8">
               {blogs.map((blog, index) => (
-                <motion.div 
+                <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -144,10 +146,14 @@ export default function BlogSection() {
                   <Card className="overflow-hidden h-full hover:shadow-xl transition-all group">
                     <CardContent className="p-0 h-full flex flex-col">
                       <div className="relative overflow-hidden h-48">
-                        <img
-                          src={blog.image || "/placeholder.svg"}
+                        <Image
+                          src={blog.image || placeholder}
                           alt={blog.title}
+                          width={800}  // Set your desired width
+                          height={400} // Set your desired height
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          placeholder="blur" // Optional: if you want blur-up effect
+                          blurDataURL={placeholder.src} // Required if using placeholder="blur"
                         />
                         <div className="absolute top-0 right-0 m-4">
                           <Badge className="bg-primary text-white border-none">{blog.readTime}</Badge>
@@ -206,11 +212,10 @@ export default function BlogSection() {
             {blogs.map((_, index) => (
               <button
                 key={index}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  activeIndex === index 
-                    ? "bg-primary scale-125" 
-                    : "bg-slate-300 dark:bg-slate-600 hover:bg-slate-400"
-                }`}
+                className={`w-3 h-3 rounded-full transition-all ${activeIndex === index
+                  ? "bg-primary scale-125"
+                  : "bg-slate-300 dark:bg-slate-600 hover:bg-slate-400"
+                  }`}
                 onClick={() => scrollToCard(index)}
                 aria-label={`Go to blog ${index + 1}`}
               />

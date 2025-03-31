@@ -12,6 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import Image from "next/image"
 
 export default function Research() {
   const conferencePresentations = [
@@ -55,10 +56,12 @@ export default function Research() {
               <Card className="h-full hover:shadow-lg transition-shadow">
                 <CardContent className="p-0 h-full flex flex-col">
                   <div className="relative h-48 overflow-hidden">
-                    <img
+                    <Image
                       src={presentation.image}
                       alt={presentation.title}
-                      className="w-full h-full object-contain"
+                      fill
+                      className="object-contain"
+                      sizes="100vw"
                     />
                     {index === 0 && (
                       <div className="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center">
