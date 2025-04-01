@@ -17,7 +17,7 @@ Visit the live site: [abhisekamgain.com.np](https://abhisekamgain.com.np)
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **UI Components**: shadcn/ui
 - **Animations**: Framer Motion
-- **Deployment**: Vercel
+- **Deployment**: Vercel, Cloudfare
 
 If you want to contact me, [abhisekamgain.com.np](https://abhisekamgain.com.np).
 Send me a contact request. Lets get connected.
