@@ -22,6 +22,7 @@ const nextConfig = {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/Portfolio/' : '',
 };
 
 mergeConfig(nextConfig, userConfig);

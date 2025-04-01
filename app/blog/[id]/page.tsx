@@ -41,24 +41,8 @@ export default async function BlogDetail({ params }: { params: { id: string } })
     return (
         <div className="bg-white dark:bg-slate-900 pt-24 pb-16">
             {/* Hero Section */}
-            <section className="relative h-[60vh] md:h-[70vh] overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
-                {/* Background image with overlay */}
-                <div className="absolute inset-0">
-                    {blog.image && (
-                        <div className="relative w-full h-full">
-                            <Image
-                                src={blog.image}
-                                alt={`Cover image for ${blog.title}`}
-                                fill
-                                className="object-cover opacity-40"
-                                priority
-                                quality={90}
-                                sizes="100vw"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
-                        </div>
-                    )}
-                </div>
+            <section className="relative h-[50vh] md:h-[50vh] overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
+                
 
                 {/* Content container */}
                 <div className="container mx-auto px-4 h-full flex flex-col justify-end pb-12 md:pb-20 relative z-10">
@@ -119,7 +103,7 @@ export default async function BlogDetail({ params }: { params: { id: string } })
                 <div className="container mx-auto px-4 max-w-4xl">
                     <div className="mb-12 flex justify-center rounded-2xl overflow-hidden shadow-xl">
                         <Image
-                            src={blog.image || "./placeholder.svg"}
+                            src={`/${blog.image}`}
                             alt={blog.title}
                             width={500}
                             height={300}
