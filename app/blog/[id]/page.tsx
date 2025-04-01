@@ -42,7 +42,7 @@ export default async function BlogDetail({ params }: { params: { id: string } })
         <div className="bg-white dark:bg-slate-900 pt-24 pb-16">
             {/* Hero Section */}
             <section className="relative h-[50vh] md:h-[50vh] overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
-                
+
 
                 {/* Content container */}
                 <div className="container mx-auto px-4 h-full flex flex-col justify-end pb-12 md:pb-20 relative z-10">
@@ -101,15 +101,6 @@ export default async function BlogDetail({ params }: { params: { id: string } })
             {/* Content Section */}
             <section className="py-16">
                 <div className="container mx-auto px-4 max-w-4xl">
-                    <div className="mb-12 flex justify-center rounded-2xl overflow-hidden shadow-xl">
-                        <Image
-                            src={`/${blog.image}`}
-                            alt={blog.title}
-                            width={500}
-                            height={300}
-                            className="object-contain"
-                        />
-                    </div>
 
                     <div
                         className="prose dark:prose-invert prose-lg max-w-none"
@@ -117,7 +108,6 @@ export default async function BlogDetail({ params }: { params: { id: string } })
                     />
                 </div>
             </section>
-
             <VoteSection />
         </div>
     );
