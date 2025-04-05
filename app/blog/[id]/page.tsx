@@ -1,31 +1,37 @@
 import { blogs } from '../../../data/blogs'
-import { User, Clock, ArrowLeft, Calendar } from 'lucide-react'
+import { User, Clock, ArrowLeft, Calendar, Share2, Bookmark, MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import { Badge } from '../../../components/ui/badge'
 import { Button } from '../../../components/ui/button'
-import Image from 'next/image'
 import { BlogVote } from '../../../components/BlogVote'
 
 export async function generateStaticParams() {
-    const blogIds = blogs.map(blog => blog.id);
-    return blogIds.map(id => ({
-        id: id.toString(),
-    }));
+    return blogs.map(blog => ({ id: blog.id.toString() }));
 }
-
 
 function VoteSection() {
     return (
-        <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-700">
-            <div className="flex flex-col justify-between items-start gap-4 md:gap-6 md:flex-row md:items-center">
-                <Button asChild variant="outline" className="w-full md:w-auto px-4 py-3 md:px-6 md:py-5">
-                    <Link href="/#blogs" className="flex items-center justify-center md:justify-start">
-                        <ArrowLeft className="mr-2 h-4 w-4" />
-                        <span>Back to All Articles</span>
-                    </Link>
-                </Button>
-                <div className="w-full md:w-auto">
-                    <BlogVote />
+        <div className="mt-16 pt-8 border-t border-gray-700">
+            <div className="max-w-4xl mx-auto px-4">
+                <div className="flex flex-col md:flex-row gap-6 items-center justify-center md:justify-between">
+                    <Button
+                        asChild
+                        variant="outline"
+                        className="border-red-500 text-white bg-red-400 hover:bg-red-500/10 hover:text-white transition-all duration-300 group"
+                    >
+                        <Link
+                            href="/#blogs"
+                            className="flex items-center px-6 py-3"
+                        >
+                            <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+                            Back to All Articles
+                        </Link>
+                    </Button>
+
+                    <div className="flex items-center gap-4 bg-gray-800/50 backdrop-blur-sm p-2 rounded-full border border-gray-700 shadow-lg">
+                        <div className="h-8 w-px bg-gray-600 mx-1"></div>
+                        <BlogVote />
+                    </div>
                 </div>
             </div>
         </div>
@@ -33,82 +39,100 @@ function VoteSection() {
 }
 
 export default async function BlogDetail({ params }: { params: { id: string } }) {
-    const { id } = await params;
-    const blog = blogs.find(blog => blog.id === id)
+    const num = params.id
+    const blog = blogs.find(blog => blog.id === num)
 
     if (!blog) {
-        return <div>Blog not found</div>;
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center text-white">
+                <div className="text-center p-6">
+                    <h1 className="text-4xl font-bold text-red-500 mb-4">404</h1>
+                    <p className="text-xl mb-6">Article not found</p>
+                    <Button asChild variant="outline" className="border-red-500 text-red-500 hover:bg-red-500/10 hover:text-white transition-all">
+                        <Link href="/#blogs">Back to Articles</Link>
+                    </Button>
+                </div>
+            </div>
+        )
     }
 
     return (
-        <div className="bg-white dark:bg-slate-900 pt-24 pb-16">
+        <div className="bg-gradient-to-br  pb-4 from-gray-900 via-gray-800 to-gray-900 text-white">
             {/* Hero Section */}
-            <section className="relative h-[60vh] sm:h-[55vh] md:h-[50vh] overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
-                {/* Content container */}
-                <div className="container mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-8 sm:pb-12 md:pb-20 relative z-10">
-                    <div className="max-w-3xl">
-                        {/* Back button */}
-                        <Link
-                            href="/#blogs"
-                            className="inline-flex items-center text-white/90 hover:text-white transition-all mb-4 sm:mb-6 group"
-                        >
-                            <ArrowLeft className="mr-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:-translate-x-1" />
-                            <span className="text-base sm:text-lg font-medium">All Articles</span>
-                        </Link>
-
-                        {/* Title */}
-                        <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 sm:mb-6 leading-snug sm:leading-tight">
-                            {blog.title}
-                        </h1>
-
-                        {/* Metadata ribbon */}
-                        <div className="flex flex-col xs:flex-row flex-wrap items-start xs:items-center gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6 md:mb-8">
-                            <div className="flex items-center bg-white/10 backdrop-blur-lg px-3 py-1 sm:px-4 sm:py-2 rounded-full">
-                                <User className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2 text-white/80" />
-                                <span className="text-sm sm:text-base font-medium text-white">{blog.author}</span>
-                            </div>
-                            <div className="flex items-center bg-white/10 backdrop-blur-lg px-3 py-1 sm:px-4 sm:py-2 rounded-full">
-                                <Calendar className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2 text-white/80" />
-                                <span className="text-sm sm:text-base font-medium text-white">{blog.date}</span>
-                            </div>
-                            <div className="flex items-center bg-white/10 backdrop-blur-lg px-3 py-1 sm:px-4 sm:py-2 rounded-full">
-                                <Clock className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2 text-white/80" />
-                                <span className="text-sm sm:text-base font-medium text-white">{blog.readTime}</span>
-                            </div>
-                        </div>
-
-                        {/* Categories */}
-                        <div className="flex flex-wrap gap-2 sm:gap-3 mb-2">
-                            {blog.categories.map((category, i) => (
-                                <Link
-                                    key={i}
-                                    href={`/category/${category}`}
-                                    className="transition-transform hover:scale-105"
-                                >
-                                    <Badge className="bg-white/20 text-white border-white/30 hover:bg-white/30 backdrop-blur-lg px-3 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-medium">
-                                        {category}
-                                    </Badge>
-                                </Link>
-                            ))}
-                        </div>
-                    </div>
+            <section className="relative py-28 pb-20 overflow-hidden">
+                <div className="absolute inset-0 z-0 opacity-20">
+                    <div className="absolute inset-0 bg-[url('/images/grid.svg')] [mask-image:linear-gradient(to_bottom,white,transparent)]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-transparent"></div>
                 </div>
 
-                {/* Decorative bottom fade */}
-                <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-t from-slate-900 to-transparent z-0" />
+                <div className="container mx-auto px-4 max-w-5xl relative z-10">
+                    <Link href="/#blogs" className="inline-flex items-center text-white/90 hover:text-white mb-8 group transition-all">
+                        <ArrowLeft className="mr-2 h-5 w-5 group-hover:-translate-x-1 transition-transform" />
+                        All Articles
+                    </Link>
+
+                    <div className="flex flex-col lg:flex-row gap-8 items-start">
+                        <div className="flex-1">
+                            <Badge className="bg-red-500/10 text-red-500 hover:bg-red-500/20 mb-4">
+                                Featured Article
+                            </Badge>
+                            <h1 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                                {blog.title}
+                            </h1>
+
+                            <div className="flex flex-wrap gap-3 mb-8">
+                                <div className="flex items-center bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm hover:bg-white/20 transition-all">
+                                    <User className="h-5 w-5 mr-2 text-red-500" />
+                                    {blog.author}
+                                </div>
+                                <div className="flex items-center bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm hover:bg-white/20 transition-all">
+                                    <Calendar className="h-5 w-5 mr-2 text-red-500" />
+                                    {blog.date}
+                                </div>
+                                <div className="flex items-center bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm hover:bg-white/20 transition-all">
+                                    <Clock className="h-5 w-5 mr-2 text-red-500" />
+                                    {blog.readTime}
+                                </div>
+                            </div>
+
+                            <div className="flex flex-wrap gap-2 mb-8">
+                                {blog.categories.map((category, i) => (
+                                    <Badge key={i} className="bg-red-500/10 text-red-500 hover:bg-red-500/20 transition-all">
+                                        {category}
+                                    </Badge>
+                                ))}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </section>
 
             {/* Content Section */}
-            <section className="py-16">
-                <div className="container mx-auto px-4 max-w-4xl">
-
-                    <div
-                        className="prose dark:prose-invert prose-lg max-w-none"
-                        dangerouslySetInnerHTML={{ __html: blog.content }}
-                    />
+            <section className="pb-16 relative">
+                <div className="container mx-auto px-4 max-w-3xl prose prose-invert prose-lg">
+                    <div className="prose-headings:text-white prose-a:text-red-400 hover:prose-a:text-red-300 prose-strong:text-white prose-blockquote:border-red-500 prose-blockquote:text-gray-300 prose-img:rounded-xl prose-img:border prose-img:border-gray-700 prose-img:shadow-lg">
+                        <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+                    </div>
                 </div>
             </section>
+
+            {/* Author Bio Section */}
+            <section className="py-12 bg-gray-800/50 border-y border-gray-700">
+                <div className="container mx-auto px-4 max-w-3xl">
+                    <div className="flex items-center gap-6">
+                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-2xl font-bold">
+                            {blog.author.charAt(0)}
+                        </div>
+                        <div>
+                            <h3 className="text-xl text-red-400 font-bold">About the Author</h3>
+                            <p className="text-gray-400 mt-1"> Always eager to explore and learn every emerging field in Computer Science.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <VoteSection />
         </div>
-    );
+    )
 }

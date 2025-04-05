@@ -59,40 +59,64 @@ export default function AboutPage() {
     }
 
     return (
-        <main className="min-h-screen bg-white pt-24 pb-16">
+        <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white pt-24 pb-16">
             {/* Hero Section */}
-            <section className="relative h-[40vh] md:h-[50vh] overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-900 to-primary/90">
-                    <div
-                        className="absolute inset-0 opacity-20"
-                        style={{
-                            backgroundImage:
-                                "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
-                            backgroundSize: "60px 60px",
-                        }}
-                    ></div>
+            <section className="relative h-[50vh] md:h-[60vh] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-red-900/90">
+                    <div className="absolute inset-0 opacity-20">
+                        {[...Array(20)].map((_, i) => (
+                            <motion.div
+                                key={i}
+                                className="absolute rounded-full bg-red-500"
+                                style={{
+                                    width: `${8 + (i * 2)}px`,
+                                    height: `${8 + (i * 2)}px`,
+                                    left: `${Math.random() * 100}%`,
+                                    top: `${Math.random() * 100}%`,
+                                }}
+                                animate={{
+                                    y: [0, 20, 0],
+                                    opacity: [0.2, 0.8, 0.2],
+                                }}
+                                transition={{
+                                    duration: 10 + (i * 2),
+                                    repeat: Infinity,
+                                    repeatType: "reverse",
+                                    ease: "easeInOut",
+                                }}
+                            />
+                        ))}
+                    </div>
                 </div>
 
                 <div className="container mx-auto px-4 h-full flex flex-col justify-center relative z-10">
-                    <Link
-                        href="/#about"
-                        className="inline-flex items-center text-white mb-6 hover:text-primary-foreground transition-colors"
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
                     >
-                        <ArrowLeft className="mr-2 h-4 w-4" />
-                        <span>Back to Home</span>
-                    </Link>
+                        <Link
+                            href="/#about"
+                            className="inline-flex items-center text-white/80 hover:text-red-400 transition-colors mb-8 group"
+                        >
+                            <ArrowLeft className="mr-2 h-5 w-5 group-hover:-translate-x-1 transition-transform" />
+                            <span>Back to Home</span>
+                        </Link>
+                    </motion.div>
 
                     <motion.h1
-                        className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
+                        className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        My Journey Into Tech & AI
+                        <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
+                            My Journey Into Tech & AI
+                        </span>
                     </motion.h1>
 
                     <motion.p
-                        className="text-xl text-white/90 max-w-2xl"
+                        className="text-xl text-gray-300 max-w-2xl leading-relaxed"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
@@ -108,7 +132,7 @@ export default function AboutPage() {
                     {journeySteps.map((step, index) => (
                         <motion.div
                             key={step.id}
-                            className={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} gap-8 mb-24`}
+                            className={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} gap-12 mb-32`}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, margin: "-100px" }}
@@ -116,40 +140,43 @@ export default function AboutPage() {
                             variants={fadeInUp}
                         >
                             {/* Image */}
-                            <div className="md:w-2/5">
-                                <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
+                            <div className="md:w-1/2">
+                                <div className="relative h-80 md:h-96 rounded-xl overflow-hidden shadow-2xl border-2 border-gray-800 group">
                                     <Image
                                         src={step.image}
                                         alt={step.imageAlt}
                                         fill
-                                        className="w-full h-full object-fill"
+                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                                 </div>
                             </div>
 
                             {/* Content */}
-                            <div className="md:w-3/5">
-                                <div className="flex items-center mb-4">
-                                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                            <div className="md:w-1/2 flex flex-col justify-center">
+                                <div className="flex items-center mb-6">
+                                    <div className="w-14 h-14 rounded-full bg-red-900/20 flex items-center justify-center text-red-500 mr-5 border border-red-500/30">
                                         {step.icon}
                                     </div>
-                                    <h2 className="text-2xl md:text-3xl font-bold">{step.title}</h2>
+                                    <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
+                                        {step.title}
+                                    </h2>
                                 </div>
 
-                                <div className="flex items-center text-sm text-slate-600 mb-6 space-x-4">
+                                <div className="flex items-center text-sm text-gray-400 mb-6 space-x-6">
                                     <div className="flex items-center">
-                                        <Calendar className="h-4 w-4 mr-1" />
+                                        <Calendar className="h-5 w-5 mr-2 text-red-500" />
                                         <span>{step.year}</span>
                                     </div>
                                     <div className="flex items-center">
-                                        <MapPin className="h-4 w-4 mr-1" />
+                                        <MapPin className="h-5 w-5 mr-2 text-red-500" />
                                         <span>{step.location}</span>
                                     </div>
                                 </div>
 
-                                <p className="text-slate-700 leading-relaxed mb-6">{step.content}</p>
+                                <p className="text-gray-300 leading-relaxed mb-8 text-lg">{step.content}</p>
 
-                                <div className={`h-1 w-20 bg-primary rounded-full ${index % 2 === 0 ? "ml-0" : "ml-auto"}`}></div>
+                                <div className={`h-1 w-24 bg-gradient-to-r from-red-500 to-red-700 rounded-full ${index % 2 === 0 ? "ml-0" : "ml-auto"}`}></div>
                             </div>
                         </motion.div>
                     ))}
@@ -157,27 +184,29 @@ export default function AboutPage() {
             </section>
 
             {/* Current Focus */}
-            <section className="bg-slate-50 py-16">
+            <section className="bg-gray-900/50 py-24 backdrop-blur-sm">
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto text-center">
                         <motion.h2
-                            className="text-3xl md:text-4xl font-bold mb-6"
+                            className="text-3xl md:text-4xl font-bold mb-8"
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5 }}
                         >
-                            Where I Am Now
+                            <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
+                                Where I Am Now
+                            </span>
                         </motion.h2>
 
                         <motion.p
-                            className="text-xl text-slate-700 mb-8"
+                            className="text-xl text-gray-300 mb-10 leading-relaxed"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.2 }}
                         >
-                            Today, I'm all-in on AI and Machine Learning(NLP, Computer Vision, GenAI, AI Agents) Every day feels like
+                            Today, I'm all-in on <span className="text-red-400 font-medium">AI and Machine Learning</span> (NLP, Computer Vision, GenAI, AI Agents). Every day feels like
                             that first time I made a cursor move—except now, I'm teaching machines to think.
                         </motion.p>
 
@@ -187,7 +216,11 @@ export default function AboutPage() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: 0.4 }}
                         >
-                            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white" asChild>
+                            <Button 
+                                size="lg" 
+                                className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white shadow-lg"
+                                asChild
+                            >
                                 <Link href="/#projects">See My Projects</Link>
                             </Button>
                         </motion.div>
@@ -196,17 +229,30 @@ export default function AboutPage() {
             </section>
 
             {/* Quote */}
-            <section className="container mx-auto px-4 py-16">
+            <section className="container mx-auto px-4 py-24">
                 <div className="max-w-4xl mx-auto">
                     <motion.blockquote
-                        className="text-2xl md:text-3xl font-medium text-center text-slate-700 italic"
+                        className="text-2xl md:text-3xl font-medium text-center text-gray-300 italic relative"
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        "The journey has been incredible. I'm excited to
-                        see where this path leads next."
+                        <svg 
+                            className="absolute -top-8 -left-8 text-red-500/30 w-16 h-16" 
+                            fill="currentColor" 
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                        </svg>
+                        "The journey has been incredible. I'm excited to see where this path leads next."
+                        <svg 
+                            className="absolute -bottom-8 -right-8 text-red-500/30 w-16 h-16" 
+                            fill="currentColor" 
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                        </svg>
                     </motion.blockquote>
                 </div>
             </section>

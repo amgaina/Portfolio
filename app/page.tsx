@@ -16,12 +16,12 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
-      <Skills />
       <Education />
+      <Skills />
       <Experience />
-      <Projects />
       <Research />
       <Papers />
+      <Projects />
       <Blogs />
       <Contact />
       <footer className="bg-slate-900 text-white py-6 text-center">

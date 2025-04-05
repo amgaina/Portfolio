@@ -2,17 +2,18 @@
 import { useState, useEffect } from "react"
 import { Button } from "./ui/button"
 import { motion } from "framer-motion"
-import { ArrowDown } from "lucide-react"
+import { ArrowDown, Github, Linkedin, Mail, Instagram } from "lucide-react"
 import Image from "next/image"
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
+    setIsClient(true)
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-
     checkMobile()
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
@@ -28,97 +29,238 @@ export default function Hero() {
     }
   }
 
+  const skills = [
+    "Skilled in creating sales and marketing dashboards using data visualization tools like Tableau and PowerBI",
+    "Proficient in Python, TensorFlow, and scikit-learn, with strong data analysis and model development skills",
+    "Created a detailed repository on machine learning topics, demonstrating practical application of theory",
+    "Eager to keep learning and contribute to AI advancements",
+    "Work experience in software engineering with skills in ReactJS, Spring, Bootstrap, AWS, APIs, and SQL",
+    "Passionate about converging software development and AI/machine learning to drive innovation"
+  ]
+
+  const socialLinks = [
+    { icon: <Github size={20} />, url: "https://github.com/amgaina" },
+    { icon: <Linkedin size={20} />, url: "https://www.linkedin.com/in/abhishek-amgain-04b642265/" },
+    { icon: <Mail size={20} />, url: "abhi.amgain567@gmail.com" },
+    { icon: <Instagram size={20} />, url: "https://www.instagram.com/abhishekamgain/" }
+  ]
+
+  // Predefined positions for background elements to avoid random values
+  const backgroundElements = [
+    { id: 1, left: 10, top: 20, size: 8, y: 15, x: -10 },
+    { id: 2, left: 85, top: 15, size: 12, y: -20, x: 15 },
+    { id: 3, left: 30, top: 70, size: 10, y: 10, x: -15 },
+    { id: 4, left: 75, top: 60, size: 7, y: -15, x: 10 },
+    { id: 5, left: 20, top: 40, size: 9, y: 20, x: -5 },
+    { id: 6, left: 65, top: 30, size: 11, y: -10, x: 20 },
+    { id: 7, left: 40, top: 80, size: 6, y: 5, x: -20 },
+    { id: 8, left: 90, top: 50, size: 8, y: -25, x: 5 }
+  ]
+
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col items-center justify-center relative bg-white text-slate-900 px-4 py-16 sm:py-0"
+      className="min-h-screen flex flex-col items-center justify-center relative bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-4 py-16 sm:py-0 overflow-hidden"
     >
-      <div
-        className="absolute inset-0 opacity-5 pointer-events-none"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23000000' fillOpacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
-          backgroundSize: "60px 60px",
-        }}
-        aria-hidden="true"
-      ></div>
-
-      <div className="container mx-auto z-10 max-w-5xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div className="order-1 flex justify-center md:order-2 md:justify-end mb-6 md:mb-0">
+      {/* Animated background elements - only render on client */}
+      {isClient && (
+        <div className="absolute inset-0 overflow-hidden opacity-10">
+          {backgroundElements.map((el) => (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
+              key={el.id}
+              className="absolute rounded-full bg-red-500"
+              style={{
+                width: `${el.size}px`,
+                height: `${el.size}px`,
+                left: `${el.left}%`,
+                top: `${el.top}%`,
+              }}
+              animate={{
+                y: [0, el.y],
+                x: [0, el.x],
+                opacity: [0.2, 0.8, 0.2],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      <div className="container mx-auto z-10 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Social Links and Text Content */}
+          <div className="order-2 lg:order-1 text-center lg:text-left">
+            {/* Social Links - Desktop Left Side */}
+            {isClient && (
+              <motion.div
+                className="hidden lg:flex flex-col space-y-6 fixed left-8 top-1/2 transform -translate-y-1/2 z-20"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.3 }}
+              >
+                {socialLinks.map((link, index) => (
+                  <motion.a
+                    key={index}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-gray-800/50 hover:bg-red-600/80 rounded-full backdrop-blur-sm transition-colors"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    {link.icon}
+                  </motion.a>
+                ))}
+              </motion.div>
+            )}
+
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight">
+                <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
+                  Abhishek Amgain
+                </span>
+              </h1>
+
+              <motion.h2
+                className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-medium mb-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+              >
+                AI & Machine Learning Enthusiast
+              </motion.h2>
+
+              <motion.p
+                className="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+              >
+                Transforming data into meaningful insights and building intelligent systems that solve real-world problems
+              </motion.p>
+
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+              >
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="bg-red-600 hover:bg-red-700 text-white font-semibold"
+                  onClick={() => scrollToSection("projects")}
+                >
+                  View My Work
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="bg-red-600 hover:bg-red-700 text-white font-semibold"
+                  onClick={() => scrollToSection("contact")}
+                >
+                  Contact Me
+                </Button>
+              </motion.div>
+
+              {/* Skills List - Desktop Only */}
+              <motion.div
+                className="hidden lg:block space-y-3 text-left"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.9, duration: 0.8 }}
+              >
+                {skills.map((skill, index) => (
+                  <div key={index} className="flex items-start">
+                    <span className="text-red-500 mr-2 mt-1">•</span>
+                    <p className="text-gray-400">{skill}</p>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Right Column - Image */}
+          <div className="order-1 lg:order-2 flex justify-center lg:justify-end mb-8 lg:mb-0">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, x: 50 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
               className="relative"
             >
-              <div className="w-40 h-40 xs:w-48 xs:h-48 sm:w-52 sm:h-52 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-6 sm:border-8 border-white shadow-xl bg-white">
+              <div className="w-96 h-80 sm:h-96 md:h-[28rem] lg:h-[32rem]">
                 <Image
-                  src="./abhishek_home.png"
+                  src="./abhishek_logo.png"
                   alt="Abhishek Amgain"
                   fill
                   priority
-                  className="object-contain object-center"
+                  className="object-contain"
                   style={{
                     imageRendering: "crisp-edges"
                   }}
                   unoptimized
                 />
               </div>
-              <div className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 bg-primary text-white text-xs sm:text-sm font-medium py-1.5 px-3 sm:py-2 sm:px-4 rounded-full shadow-lg">
-                Enjoy Statistics
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="order-2 md:order-1 text-center md:text-left">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 tracking-tight">
-                Abhishek Amgain
-              </h1>
-
-              <h2 className="text-base xs:text-lg sm:text-xl md:text-2xl text-primary font-medium mb-4 sm:mb-6">
-                AI and Machine Learning Enthusiast
-              </h2>
-
-              <p className="text-sm xs:text-base sm:text-lg text-slate-700 mb-6 sm:mb-8 max-w-lg mx-auto md:mx-0">
-                Exploring the frontiers of artificial intelligence and transforming data into meaningful insights
-              </p>
-
-              <div className="flex flex-col xs:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
-                <Button
-                  size="default"
-                  className="w-full xs:w-auto bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base"
-                  onClick={() => scrollToSection("projects")}
-                >
-                  View My Work
-                </Button>
-
-                <Button
-                  variant="outline"
-                  size="default"
-                  className="w-full xs:w-auto border-slate-300 text-slate-900 hover:bg-slate-100 text-sm sm:text-base"
-                  onClick={() => scrollToSection("contact")}
-                >
-                  Contact Me
-                </Button>
-              </div>
             </motion.div>
           </div>
         </div>
       </div>
 
-      <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2">
+      {/* Social Links - Mobile */}
+      {isClient && (
+        <motion.div
+          className="lg:hidden flex justify-center space-x-6 mt-12 w-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.3 }}
+        >
+          {socialLinks.map((link, index) => (
+            <motion.a
+              key={index}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-gray-800/50 hover:bg-red-600/80 rounded-full backdrop-blur-sm transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              {link.icon}
+            </motion.a>
+          ))}
+        </motion.div>
+      )}
+
+      {/* Scroll Down Button */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.5 }}
+      >
         <Button
           variant="ghost"
           size="icon"
-          className="text-slate-400 hover:text-primary hover:bg-slate-100 rounded-full"
+          className="text-gray-400 hover:text-red-500 hover:bg-gray-800/50 rounded-full backdrop-blur-sm"
           onClick={() => scrollToSection("about")}
           aria-label="Scroll to About section"
         >
-          <ArrowDown size={20} />
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <ArrowDown size={24} />
+          </motion.div>
         </Button>
-      </div>
+      </motion.div>
     </section>
   )
 }

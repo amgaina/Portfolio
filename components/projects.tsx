@@ -1,10 +1,10 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
 import { Badge } from "./ui/badge"
-import { Github, ExternalLink, X } from "lucide-react"
+import { Github, ExternalLink, ArrowRight } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -17,6 +17,12 @@ import placeholder from '../public/placeholder.svg';
 export default function Projects() {
   const [visibleProjects, setVisibleProjects] = useState(6)
   const [selectedProject, setSelectedProject] = useState<null | (typeof projects)[0]>(null)
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null)
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const projects = [
     {
@@ -25,7 +31,8 @@ export default function Projects() {
       description: "A NLP based web app that classifies Amazon Echo product reviews as positive/negative using machine learning.",
       image: "./Amazon_sentiment.png",
       tags: ["Python", "Flask", "NLTK", "XGBoost", "Machine Learning", "NLP"],
-      github: "https://github.com/amgaina/Amazon_Sentiment_Analysis"
+      github: "https://github.com/amgaina/Amazon_Sentiment_Analysis",
+      live_url: "https://github.com/amgaina/Amazon_Sentiment_Analysis"
     },
     {
       title: "House Price Prediction",
@@ -34,6 +41,7 @@ export default function Projects() {
       image: "./house_price_prediction.png",
       tags: ["Python", "Flask", "Machine Learning", "Linear Regression", "scikit-learn", "Bootstrap"],
       github: "https://github.com/amgaina/House-Price-Prediction",
+      live_url: "https://github.com/amgaina/House-Price-Prediction"
     },
     {
       title: "Placeaway - AI-Powered Trip Planner",
@@ -49,6 +57,7 @@ export default function Projects() {
         "shadcn/ui"
       ],
       github: "https://github.com/amgaina/placeaway",
+      live_url: "https://placeaway.netlify.app/"
     },
     {
       title: "Google Stock Price Pattern Prediction",
@@ -64,6 +73,7 @@ export default function Projects() {
         "Financial Forecasting"
       ],
       github: "https://github.com/amgaina/Google_Stock_Price_Pattern_Prediction",
+      live_url: "https://github.com/amgaina/Google_Stock_Price_Pattern_Prediction"
     },
     {
       title: "Movie Recommender System",
@@ -79,6 +89,7 @@ export default function Projects() {
         "Count Vectorizer"
       ],
       github: "https://github.com/amgaina/Movie-Recommender-System",
+      live_url: "https://github.com/amgaina/Movie-Recommender-System"
     },
     {
       title: "Grant Application Management System",
@@ -93,6 +104,7 @@ export default function Projects() {
         "Full-stack Development"
       ],
       github: "https://github.com/Georgey764/Grant-Application-Management-System",
+      live_url: "https://github.com/Georgey764/Grant-Application-Management-System"
     }
   ]
 
@@ -112,23 +124,44 @@ export default function Projects() {
 
   const item = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
   }
 
   return (
-    <section id="projects" className="py-20 bg-slate-50 dark:bg-slate-900">
-      <div className="container mx-auto px-4">
+    <section id="projects" className="py-24 bg-gradient-to-br from-gray-900 via-black to-gray-800">
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">Projects</h2>
-          <div className="w-20 h-1 bg-primary mx-auto"></div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
+              My Projects
+            </span>
+          </h2>
+          <motion.div
+            className="w-24 h-1 bg-gradient-to-r from-red-500 to-red-700 mx-auto rounded-full"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+          />
+          <motion.p
+            className="text-xl text-gray-300 mt-6 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            A showcase of my technical projects and contributions
+          </motion.p>
         </motion.div>
 
+        {/* Projects Grid */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={container}
@@ -137,9 +170,15 @@ export default function Projects() {
           viewport={{ once: true }}
         >
           {projects.slice(0, visibleProjects).map((project, index) => (
-            <motion.div key={index} variants={item}>
-              <Card className="overflow-hidden h-full hover:shadow-xl transition-all group">
+            <motion.div
+              key={index}
+              variants={item}
+              onMouseEnter={() => setHoveredProject(index)}
+              onMouseLeave={() => setHoveredProject(null)}
+            >
+              <Card className="overflow-hidden h-full border border-gray-700 bg-gray-900/50 backdrop-blur-sm group hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-0 h-full flex flex-col">
+                  {/* Project Image with Hover Overlay */}
                   <div className="relative overflow-hidden h-48">
                     <Image
                       src={project.image || placeholder}
@@ -149,36 +188,58 @@ export default function Projects() {
                       sizes="(max-width: 768px) 100vw, 50vw"
                       priority={false}
                     />
-                    <div className="absolute inset-0 bg-primary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                      <Button size="icon" variant="secondary" className="rounded-full" asChild>
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label="GitHub Repository"
+                    {/* Only render hover overlay on client side */}
+                    {isClient && (
+                      <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6`}>
+                        <motion.div
+                          className="flex gap-4"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={hoveredProject === index ? { opacity: 1, y: 0 } : {}}
+                          transition={{ duration: 0.3 }}
                         >
-                          <Github className="h-5 w-5" />
-                        </a>
-                      </Button>
-                      <Button
-                        size="icon"
-                        variant="secondary"
-                        className="rounded-full"
-                        onClick={() => setSelectedProject(project)}
-                        aria-label="Project Details"
-                      >
-                        <ExternalLink className="h-5 w-5" />
-                      </Button>
-                    </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="bg-red-600 text-white border-red-600 hover:bg-red-700 hover:border-red-700"
+                            onClick={() => setSelectedProject(project)}
+                          >
+                            <ExternalLink className="h-4 w-4 mr-2" />
+                            Details
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="bg-red-600 text-white border-red-600 hover:bg-red-700 hover:border-red-700"
+                            asChild
+                          >
+                            <a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Github className="h-4 w-4 mr-2" />
+                              Code
+                            </a>
+                          </Button>
+                        </motion.div>
+                      </div>
+                    )}
                   </div>
 
+                  {/* Project Content */}
                   <div className="p-6 flex-1 flex flex-col">
-                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4 flex-1">{project.description}</p>
+                    <h3 className="text-xl font-bold mb-2 text-white group-hover:text-red-400 transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-400 mb-4 flex-1">{project.description}</p>
 
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {project.tags.map((tag, i) => (
-                        <Badge key={i} variant="outline" className="bg-primary/10 text-primary border-primary/20">
+                        <Badge
+                          key={i}
+                          variant="outline"
+                          className="bg-red-900/20 text-red-400 border-red-500/30 hover:bg-red-900/30 transition-colors"
+                        >
                           {tag}
                         </Badge>
                       ))}
@@ -192,33 +253,64 @@ export default function Projects() {
 
         {/* Project Details Dialog */}
         <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-          <DialogContent className="max-w-2xl p-0 overflow-hidden rounded-lg">
+          <DialogContent className="max-w-2xl p-0 overflow-hidden rounded-lg border border-gray-700 bg-gray-900">
             {selectedProject && (
-              <div className="grid grid-cols-1">
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="relative h-64 md:h-full">
+                  <Image
+                    src={selectedProject.image || placeholder}
+                    alt={selectedProject.title}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                </div>
+
                 <div className="p-6">
                   <DialogHeader>
-                    <div className="flex justify-between items-start">
-                      <DialogTitle className="text-2xl font-bold mb-2">
-                        {selectedProject.title}
-                      </DialogTitle>
-                    </div>
+                    <DialogTitle className="text-2xl font-bold text-white mb-2">
+                      {selectedProject.title}
+                    </DialogTitle>
                   </DialogHeader>
 
                   <div className="space-y-4">
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-300">
                       {selectedProject.dialog_description}
                     </p>
 
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.tags.map((tag, i) => (
-                        <Badge key={i} variant="outline" className="bg-primary/10 text-primary border-primary/20">
+                        <Badge
+                          key={i}
+                          variant="outline"
+                          className="bg-red-900/20 text-red-400 border-red-500/30"
+                        >
                           {tag}
                         </Badge>
                       ))}
                     </div>
 
                     <div className="flex gap-4 pt-4">
-                      <Button asChild>
+                      <Button
+                        asChild
+                        className="bg-red-600 hover:bg-red-700 text-white"
+                      >
+                        <a
+                          href={selectedProject.live_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2"
+                        >
+                          <ArrowRight className="h-4 w-4" />
+                          View Project
+                        </a>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="bg-red-600 hover:bg-red-700 text-white"
+                        asChild
+                      >
                         <a
                           href={selectedProject.github}
                           target="_blank"
@@ -226,7 +318,7 @@ export default function Projects() {
                           className="flex items-center gap-2"
                         >
                           <Github className="h-4 w-4" />
-                          View on GitHub
+                          View Code
                         </a>
                       </Button>
                     </div>
@@ -237,20 +329,25 @@ export default function Projects() {
           </DialogContent>
         </Dialog>
 
+        {/* Show More Button */}
         {visibleProjects < projects.length && (
           <motion.div
-            className="text-center mt-12"
+            className="text-center mt-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Button onClick={showMoreProjects} className="bg-primary hover:bg-primary/90 text-white">
+            <Button
+              onClick={showMoreProjects}
+              className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white shadow-lg shadow-red-900/30"
+            >
               Show More Projects
             </Button>
           </motion.div>
         )}
 
+        {/* GitHub Link */}
         <motion.div
           className="text-center mt-12"
           initial={{ opacity: 0, y: 20 }}
@@ -258,7 +355,11 @@ export default function Projects() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white" asChild>
+          <Button
+            variant="outline"
+            className="bg-red-600 text-white border-red-600 hover:bg-red-700 hover:border-red-700"
+            asChild
+          >
             <a href="https://github.com/amgaina" target="_blank" rel="noopener noreferrer">
               <Github className="mr-2 h-4 w-4" />
               View More on GitHub

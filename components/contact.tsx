@@ -81,24 +81,24 @@ export default function Contact() {
 
   const contactInfo = [
     {
-      icon: <MapPin className="h-6 w-6" />,
+      icon: <MapPin className="h-6 w-6 text-red-500" />,
       title: "Location",
       details: "Monroe, Louisiana, USA",
     },
     {
-      icon: <Mail className="h-6 w-6" />,
+      icon: <Mail className="h-6 w-6 text-red-500" />,
       title: "Email",
       details: "abhi.amgain567@gmail.com",
     },
     {
-      icon: <Phone className="h-6 w-6" />,
+      icon: <Phone className="h-6 w-6 text-red-500" />,
       title: "Phone",
       details: "+1 *********",
     },
   ]
 
   return (
-    <section id="contact" className="py-20 bg-slate-50 dark:bg-slate-900 relative">
+    <section id="contact" className="py-20 bg-black relative">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -107,8 +107,8 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">Contact</h2>
-          <div className="w-20 h-1 bg-primary mx-auto"></div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-red-500">Contact</h2>
+          <div className="w-20 h-1 bg-red-500 mx-auto"></div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -119,16 +119,16 @@ export default function Contact() {
             viewport={{ once: true }}
             className="lg:col-span-1"
           >
-            <Card className="h-full">
+            <Card className="h-full bg-black border-gray-800">
               <CardContent className="p-6">
-                <h3 className="text-2xl font-bold mb-6">Get In Touch</h3>
+                <h3 className="text-2xl font-bold mb-6 text-red-500">Get In Touch</h3>
                 <div className="space-y-6">
                   {contactInfo.map((info, index) => (
                     <div key={index} className="flex items-start">
-                      <div className="mr-4 p-3 bg-primary/10 text-primary rounded-full">{info.icon}</div>
+                      <div className="mr-4 p-3 bg-red-500/10 rounded-full">{info.icon}</div>
                       <div>
-                        <h4 className="font-medium">{info.title}</h4>
-                        <p className="text-gray-600 dark:text-gray-400">{info.details}</p>
+                        <h4 className="font-medium text-white">{info.title}</h4>
+                        <p className="text-white">{info.details}</p>
                       </div>
                     </div>
                   ))}
@@ -154,12 +154,12 @@ export default function Contact() {
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
-            <Card className="h-full">
+            <Card className="h-full bg-black border-gray-800">
               <CardContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-6 relative">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block mb-2 font-medium">
+                      <label htmlFor="name" className="block mb-2 font-medium text-white">
                         Your Name
                       </label>
                       <Input
@@ -169,10 +169,11 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="John Doe"
                         required
+                        className="bg-gray-900 border-gray-800 text-white placeholder-gray-500"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block mb-2 font-medium">
+                      <label htmlFor="email" className="block mb-2 font-medium text-white">
                         Your Email
                       </label>
                       <Input
@@ -183,12 +184,13 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="john@example.com"
                         required
+                        className="bg-gray-900 border-gray-800 text-white placeholder-gray-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block mb-2 font-medium">
+                    <label htmlFor="phone" className="block mb-2 font-medium text-white">
                       Your Phone Number
                     </label>
                     <Input
@@ -197,11 +199,12 @@ export default function Contact() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+1 (123) 456-7890"
+                      className="bg-gray-900 border-gray-800 text-white placeholder-gray-500"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block mb-2 font-medium">
+                    <label htmlFor="message" className="block mb-2 font-medium text-white">
                       Your Message
                     </label>
                     <Textarea
@@ -212,12 +215,13 @@ export default function Contact() {
                       placeholder="Write your message here..."
                       rows={6}
                       required
+                      className="bg-gray-900 border-gray-800 text-white placeholder-gray-500"
                     />
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full bg-primary hover:bg-primary/90 text-white"
+                    className="w-full bg-red-500 hover:bg-red-600 text-white"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
@@ -240,18 +244,18 @@ export default function Contact() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.3 }}
-                        className="absolute inset-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm flex flex-col items-center justify-center p-6 rounded-lg"
+                        className="absolute inset-0 bg-black/90 backdrop-blur-sm flex flex-col items-center justify-center p-6 rounded-lg border border-gray-800"
                       >
-                        <CheckCircle className="h-12 w-12 text-green-500 mb-4" />
-                        <h3 className="text-xl font-bold mb-2 text-center">
+                        <CheckCircle className="h-12 w-12 text-red-500 mb-4" />
+                        <h3 className="text-xl font-bold mb-2 text-center text-white">
                           Message Received!
                         </h3>
-                        <p className="text-center mb-6">
+                        <p className="text-center mb-6 text-white">
                           Thanks for reaching out. I've received your contact request and will get back to you shortly.
                         </p>
                         <Button
                           onClick={() => setShowSuccess(false)}
-                          className="bg-primary hover:bg-primary/90 text-white"
+                          className="bg-red-500 hover:bg-red-600 text-white"
                         >
                           Close
                         </Button>

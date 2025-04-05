@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { Button } from "./ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Home, Code, FolderGit2, FileText, Contact, GraduationCap } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 export default function Navbar() {
@@ -10,7 +10,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 10)
     }
 
     window.addEventListener("scroll", handleScroll)
@@ -18,16 +18,11 @@ export default function Navbar() {
   }, [])
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Education", href: "#education" },
-    { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Research", href: "#research" },
-    { name: "Papers", href: "#papers" },
-    { name: "Blog", href: "#blogs" },
-    { name: "Contact", href: "#contact" },
+    { name: "Skills", href: "#skills", icon: <Code size={18} /> },
+    { name: "Projects", href: "#projects", icon: <FolderGit2 size={18} /> },
+    { name: "Papers", href: "#papers", icon: <GraduationCap size={18} /> },
+    { name: "Contact", href: "#contact", icon: <Contact size={18} /> },
+    { name: "Resume", href: "#resume", icon: <FileText size={18} />, isCta: true }
   ]
 
   const scrollToSection = (href: string) => {
@@ -49,53 +44,58 @@ export default function Navbar() {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/95 backdrop-blur-sm py-2 shadow-lg" : "bg-transparent py-4"
-        }`}>
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className="flex justify-between items-center">
-            <a
-              href="#home"
-              className="text-3xl md:text-4xl font-bold"
-              onClick={(e) => {
-                e.preventDefault()
-                scrollToSection("#home")
-              }}
-            >
-              <span className="bg-gradient-to-r from-slate-800 to-primary bg-clip-text text-transparent">
-                ABHISHEK<span className="text-primary">.</span>
-              </span>
-            </a>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-md py-2 border-b border-gray-700" : "bg-transparent py-4"}`}>
+        <div className="container mx-auto px-6 max-w-7xl flex justify-between items-center">
+          <motion.a
+            href="#home"
+            className="text-2xl md:text-3xl font-bold text-white tracking-wide flex items-center"
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToSection("#home")
+            }}
+            whileHover={{ scale: 1.05 }}
+          >
+            <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
+              ABHISHEK<span className="text-red-500">.</span>
+            </span>
+          </motion.a>
 
-            <nav className="hidden md:block">
-              <ul className="flex space-x-8">
-                {navLinks.map((link) => (
-                  <li key={link.name}>
-                    <motion.a
-                      href={link.href}
-                      className="relative text-slate-700 hover:text-primary transition-colors text-lg font-medium"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        scrollToSection(link.href)
-                      }}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {link.name}
-                    </motion.a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+          <nav className="hidden md:flex space-x-4">
+            {navLinks.map((link) => (
+              <motion.a
+                key={link.name}
+                href={link.href}
+                className={`relative px-3 py-2 text-sm font-medium flex items-center gap-2 rounded-md transition-colors ${link.isCta ? "bg-red-600 hover:bg-red-700 text-white" : "text-gray-300 hover:text-white hover:bg-gray-800"}`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  scrollToSection(link.href)
+                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-red-400">{link.icon}</span>
+                {link.name}
+                {!link.isCta && (
+                  <motion.span
+                    className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500"
+                    whileHover={{ width: "100%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+              </motion.a>
+            ))}
+          </nav>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden text-primary hover:bg-primary/10"
+          <motion.div className="md:hidden" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-white hover:bg-gray-700/10"
               onClick={() => setIsMenuOpen(true)}
-              aria-label="Open menu"
             >
-              <Menu size={28} />
+              <Menu size={28} className="text-red-400" />
             </Button>
-          </div>
+          </motion.div>
         </div>
       </header>
 
@@ -103,71 +103,55 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="fixed inset-0 bg-white z-50 overflow-y-auto"
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="fixed inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900 backdrop-blur-lg z-50 flex flex-col items-center justify-center p-6"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
           >
-            {/* Close Button Header */}
-            <div className="container mx-auto px-4 py-6 flex justify-between items-center border-b border-slate-200 sticky top-0 bg-white z-10">
-              <a
-                href="#home"
-                className="text-3xl font-bold"
-                onClick={(e) => {
-                  e.preventDefault()
-                  scrollToSection("#home")
-                }}
-              >
-                <span className="bg-gradient-to-r from-slate-800 to-primary bg-clip-text text-transparent">
-                  ABHISHEK<span className="text-primary">.</span>
-                </span>
-              </a>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-primary hover:bg-primary/10"
-                onClick={() => setIsMenuOpen(false)}
-                aria-label="Close menu"
-              >
-                <X size={28} />
-              </Button>
-            </div>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="absolute top-6 right-6 text-white hover:bg-gray-700/10" 
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <X size={28} className="text-red-400" />
+            </Button>
 
-            {/* Menu Items */}
-            <div className="container mx-auto px-4 py-8">
-              <ul className="space-y-6">
-                {navLinks.map((link) => (
-                  <motion.li
-                    key={link.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
+            <motion.ul className="flex flex-col space-y-6 w-full max-w-xs">
+              {navLinks.map((link, index) => (
+                <motion.li 
+                  key={link.name}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <a
+                    href={link.href}
+                    className={`flex items-center gap-4 text-xl font-medium px-6 py-3 rounded-lg transition-colors ${link.isCta ? "bg-red-600 hover:bg-red-700 text-white" : "text-gray-300 hover:text-white hover:bg-gray-800"}`}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      scrollToSection(link.href)
+                    }}
                   >
-                    <a
-                      href={link.href}
-                      className="block text-2xl font-medium text-slate-700 hover:text-primary py-3 px-6"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        scrollToSection(link.href)
-                      }}
-                    >
-                      {link.name}
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
+                    <span className="text-red-400">{link.icon}</span>
+                    {link.name}
+                  </a>
+                </motion.li>
+              ))}
+            </motion.ul>
+
+            <motion.div 
+              className="mt-12 text-gray-400 text-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: navLinks.length * 0.1 + 0.2 }}
+            >
+              Navigate through my portfolio
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      <style jsx global>{`
-        #home, #about, #skills, #education, #experience, 
-        #projects, #research, #papers, #blogs, #contact {
-          scroll-margin-top: 100px;
-        }
-      `}</style>
     </>
   )
 }
