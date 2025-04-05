@@ -22,11 +22,16 @@ export default function Navbar() {
     { name: "Projects", href: "#projects", icon: <FolderGit2 size={18} /> },
     { name: "Papers", href: "#papers", icon: <GraduationCap size={18} /> },
     { name: "Contact", href: "#contact", icon: <Contact size={18} /> },
-    { name: "Resume", href: "#resume", icon: <FileText size={18} />, isCta: true }
+    { name: "Resume", href: "/resume", icon: <FileText size={18} />, isCta: true }
   ]
 
   const scrollToSection = (href: string) => {
     setIsMenuOpen(false)
+    if (href === "/resume") {
+      window.location.href = href; // Redirect to /resume page directly
+      return;
+    }
+
     const element = document.querySelector(href)
     if (element) {
       const offset = 100

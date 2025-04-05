@@ -82,8 +82,8 @@ export default function BlogSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
-            Latest <span className="text-red-500">Articles</span>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-red-500">
+            Latest Articles
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             Insights and tutorials on AI, machine learning, and technology trends

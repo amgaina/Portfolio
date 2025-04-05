@@ -4,9 +4,10 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
 import { Badge } from "./ui/badge"
-import { Github, ExternalLink, ArrowRight } from "lucide-react"
+import { Github, ExternalLink, ArrowRight, X } from "lucide-react"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -251,80 +252,90 @@ export default function Projects() {
           ))}
         </motion.div>
 
-        {/* Project Details Dialog */}
         <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
           <DialogContent className="max-w-2xl p-0 overflow-hidden rounded-lg border border-gray-700 bg-gray-900">
             {selectedProject && (
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="relative h-64 md:h-full">
-                  <Image
-                    src={selectedProject.image || placeholder}
-                    alt={selectedProject.title}
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                </div>
+              <>
+                {/* Close button - visible on all devices */}
+                <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-50">
+                  <X className="h-6 w-6 text-white" />
+                  <span className="sr-only">Close</span>
+                </DialogClose>
 
-                <div className="p-6">
-                  <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold text-white mb-2">
-                      {selectedProject.title}
-                    </DialogTitle>
-                  </DialogHeader>
+                <div className="flex flex-col md:grid md:grid-cols-2">
+                  {/* Image Section - Hidden on mobile */}
+                  <div className="hidden md:block relative h-full min-h-[400px]">
+                    <Image
+                      src={selectedProject.image || placeholder}
+                      alt={selectedProject.title}
+                      fill
+                      className="object-contain"
+                      sizes="50vw"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  </div>
 
-                  <div className="space-y-4">
-                    <p className="text-gray-300">
-                      {selectedProject.dialog_description}
-                    </p>
+                  {/* Content Section - Full width on mobile */}
+                  <div className="p-6 overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl font-bold text-white mb-2">
+                        {selectedProject.title}
+                      </DialogTitle>
+                    </DialogHeader>
 
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.tags.map((tag, i) => (
-                        <Badge
-                          key={i}
+                    <div className="space-y-4">
+                      <p className="text-gray-300">
+                        {selectedProject.dialog_description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.tags.map((tag, i) => (
+                          <Badge
+                            key={i}
+                            variant="outline"
+                            className="bg-red-900/20 text-red-400 border-red-500/30 text-sm"
+                          >
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-col gap-4 pt-4">
+                        <Button
+                          asChild
+                          className="bg-red-600 hover:bg-red-700 text-white"
+                        >
+                          <a
+                            href={selectedProject.live_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2"
+                          >
+                            <ArrowRight className="h-4 w-4" />
+                            View Project
+                          </a>
+                        </Button>
+                        <Button
                           variant="outline"
-                          className="bg-red-900/20 text-red-400 border-red-500/30"
+                          className="bg-red-600 hover:bg-red-700 text-white"
+                          asChild
                         >
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <div className="flex gap-4 pt-4">
-                      <Button
-                        asChild
-                        className="bg-red-600 hover:bg-red-700 text-white"
-                      >
-                        <a
-                          href={selectedProject.live_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2"
-                        >
-                          <ArrowRight className="h-4 w-4" />
-                          View Project
-                        </a>
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="bg-red-600 hover:bg-red-700 text-white"
-                        asChild
-                      >
-                        <a
-                          href={selectedProject.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2"
-                        >
-                          <Github className="h-4 w-4" />
-                          View Code
-                        </a>
-                      </Button>
+                          <a
+                            href={selectedProject.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2"
+                          >
+                            <Github className="h-4 w-4" />
+                            View Code
+                          </a>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
           </DialogContent>
         </Dialog>
