@@ -45,7 +45,6 @@ export default function Hero() {
     { icon: <Instagram size={20} />, url: "https://www.instagram.com/abhishekamgain/" }
   ]
 
-  // Predefined positions for background elements to avoid random values
   const backgroundElements = [
     { id: 1, left: 10, top: 20, size: 8, y: 15, x: -10 },
     { id: 2, left: 85, top: 15, size: 12, y: -20, x: 15 },
@@ -62,7 +61,10 @@ export default function Hero() {
       id="home"
       className="min-h-screen flex flex-col items-center justify-center relative bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-4 py-16 sm:py-0 overflow-hidden"
     >
-      {/* Animated background elements - only render on client */}
+      {/* Preload the hero image */}
+      <link rel="preload" href="/abhishek_logo.png" as="image" />
+
+      {/* Animated background elements */}
       {isClient && (
         <div className="absolute inset-0 overflow-hidden opacity-10">
           {backgroundElements.map((el) => (
@@ -93,7 +95,7 @@ export default function Hero() {
 
       <div className="container mx-auto z-10 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Social Links and Text Content */}
+          {/* Left Column - Text Content */}
           <div className="order-2 lg:order-1 text-center lg:text-left">
             {/* Social Links - Desktop Left Side */}
             {isClient && (
@@ -189,27 +191,24 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right Column - Image */}
+          {/* Right Column - Image (Optimized for LCP) */}
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end mb-8 lg:mb-0">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, x: 50 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="relative"
+              className="relative w-full max-w-md aspect-square"
             >
-              <div className="w-96 h-80 sm:h-96 md:h-[28rem] lg:h-[32rem]">
-                <Image
-                  src="./abhishek_logo.png"
-                  alt="Abhishek Amgain"
-                  fill
-                  priority
-                  className="object-contain"
-                  style={{
-                    imageRendering: "crisp-edges"
-                  }}
-                  unoptimized
-                />
-              </div>
+              <Image
+                src="/abhishek_logo.png"
+                alt="Abhishek Amgain"
+                width={500}
+                height={500}
+                priority
+                className="object-contain"
+                quality={85}
+                loading="eager"
+              />
             </motion.div>
           </div>
         </div>

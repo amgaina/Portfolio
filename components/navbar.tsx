@@ -53,16 +53,18 @@ export default function Navbar() {
         <div className="container mx-auto px-6 max-w-7xl flex justify-between items-center">
           <motion.a
             href="#home"
-            className="text-2xl md:text-3xl font-bold text-white tracking-wide flex items-center"
+            className="flex items-center"
             onClick={(e) => {
               e.preventDefault()
               scrollToSection("#home")
             }}
             whileHover={{ scale: 1.05 }}
           >
-            <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
-              ABHISHEK<span className="text-red-500">.</span>
-            </span>
+            <img
+              src="./abhishek_logo.png" // Replace with your actual logo path
+              alt="Logo"
+              className="h-10 w-auto md:h-12" // Adjust height as needed
+            />
           </motion.a>
 
           <nav className="hidden md:flex space-x-4">
@@ -92,9 +94,9 @@ export default function Navbar() {
           </nav>
 
           <motion.div className="md:hidden" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-            <Button 
-              variant="ghost" 
-              size="icon" 
+            <Button
+              variant="ghost"
+              size="icon"
               className="text-white hover:bg-gray-700/10"
               onClick={() => setIsMenuOpen(true)}
             >
@@ -114,10 +116,10 @@ export default function Navbar() {
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
           >
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="absolute top-6 right-6 text-white hover:bg-gray-700/10" 
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-6 right-6 text-white hover:bg-gray-700/10"
               onClick={() => setIsMenuOpen(false)}
             >
               <X size={28} className="text-red-400" />
@@ -125,7 +127,7 @@ export default function Navbar() {
 
             <motion.ul className="flex flex-col space-y-6 w-full max-w-xs">
               {navLinks.map((link, index) => (
-                <motion.li 
+                <motion.li
                   key={link.name}
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -146,7 +148,7 @@ export default function Navbar() {
               ))}
             </motion.ul>
 
-            <motion.div 
+            <motion.div
               className="mt-12 text-gray-400 text-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
