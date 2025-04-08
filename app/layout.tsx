@@ -14,14 +14,14 @@ export const metadata = {
   robots: "index, follow",
   icons: {
     icon: [
-      { url: "/abhishek_logo.png", type: "image/x-icon" },
-      { url: "/icon.png", type: "image/png" },
+      { url: "./abhishek_logo.png", type: "image/x-icon" },
+      { url: "./abhishek_logo.png", type: "image/png" },
     ],
     shortcut: "/favicon.ico",
     apple: [{ url: "/apple-touch-icon.png" }],
   },
   openGraph: {
-    title: "Abhishek Amgain - AI & Machine Learning Engineer | Portfolio",
+    title: "Abhishek Amgain - AI & Machine Learning | Portfolio",
     description: "Explore the professional portfolio of Abhishek Amgain, specializing in AI and Machine Learning.",
     url: "https://abhishekamgain",
     siteName: "Abhishek Amgain Portfolio",
@@ -35,13 +35,6 @@ export const metadata = {
     ],
     locale: "en_US",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Abhishek Amgain - AI & Machine Learning Engineer | Portfolio",
-    description: "Explore the professional portfolio of Abhishek Amgain, specializing in AI and Machine Learning.",
-    images: ["/abhishek_logo.png"], // Replace with your actual image path
-    creator: "@yourTwitterHandle", // Add your Twitter handle
   },
 };
 
@@ -74,13 +67,6 @@ export default function RootLayout({
         <meta property="og:type" content={metadata.openGraph.type} />
         <meta property="og:locale" content={metadata.openGraph.locale} />
         <meta property="og:site_name" content={metadata.openGraph.siteName} />
-
-        {/* Twitter Cards */}
-        <meta name="twitter:card" content={metadata.twitter.card} />
-        <meta name="twitter:title" content={metadata.twitter.title} />
-        <meta name="twitter:description" content={metadata.twitter.description} />
-        <meta name="twitter:image" content={metadata.twitter.images[0]} />
-        <meta name="twitter:creator" content={metadata.twitter.creator} />
 
         {/* Structured Data */}
         <script type="application/ld+json">

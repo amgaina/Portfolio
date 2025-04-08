@@ -39,7 +39,6 @@ export default function Education() {
       degree: "High School",
       period: "2019-2021",
       location: "Gaindakot - 02, Nepal",
-      skills: ["QBASIC", "C", "HTML", "CSS", "JavaScript", "Microsoft Office Suite"],
       logo: "./oxford_logo.png",
       progress: 100,
       focusAreas: [
@@ -487,41 +486,6 @@ export default function Education() {
                               </motion.div>
                             ))}
                           </div>
-                        </motion.div>
-                      )}
-
-                      {/* Skills */}
-                      {edu.skills && (
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          transition={{ duration: 0.6, delay: 0.4 }}
-                          viewport={{ once: true }}
-                        >
-                          <div className="flex items-center mb-4">
-                            <Code className="h-5 w-5 text-red-500 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                            <h4 className="font-semibold text-lg text-white group-hover:text-red-400 transition-colors duration-300">
-                              Acquired Skills
-                            </h4>
-                          </div>
-                          <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            transition={{ staggerChildren: 0.05, delayChildren: 0.2 }}
-                            viewport={{ once: true }}
-                            className="flex flex-wrap gap-2"
-                          >
-                            {edu.skills.map((skill, i) => (
-                              <motion.span
-                                key={i}
-                                variants={fadeInUp}
-                                whileHover={skillHover}
-                                className="px-3 py-1.5 bg-red-900/40 text-red-400 rounded-full text-sm font-medium border border-red-500/30 cursor-default"
-                              >
-                                {skill}
-                              </motion.span>
-                            ))}
-                          </motion.div>
                         </motion.div>
                       )}
                     </div>

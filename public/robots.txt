@@ -1,0 +1,20 @@
+// app/robots.txt/route.ts
+export async function GET() {
+  const content = `
+User-agent: *
+Allow: /$
+Allow: /blogs/
+Allow: /papers/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /404
+
+Sitemap: https://abhishekamgain.com/sitemap.xml
+  `.trim()
+
+  return new Response(content, {
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+  })
+}

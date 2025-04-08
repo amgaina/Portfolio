@@ -61,9 +61,9 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
           >
             <img
-              src="./abhishek_logo.png" // Replace with your actual logo path
+              src="./abhishek_logo.png"
               alt="Logo"
-              className="h-10 w-auto md:h-12" // Adjust height as needed
+              className="h-10 w-auto md:h-12 hidden md:block" // Added hidden md:block
             />
           </motion.a>
 

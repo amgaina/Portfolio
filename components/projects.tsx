@@ -256,8 +256,8 @@ export default function Projects() {
           <DialogContent className="max-w-2xl p-0 overflow-hidden rounded-lg border border-gray-700 bg-gray-900">
             {selectedProject && (
               <>
-                {/* Close button - visible on all devices */}
-                <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-50">
+                {/* Improved Close button - responsive positioning */}
+                <DialogClose className="absolute right-4 top-4 md:right-4 md:top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-50">
                   <X className="h-6 w-6 text-white" />
                   <span className="sr-only">Close</span>
                 </DialogClose>
@@ -276,14 +276,15 @@ export default function Projects() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   </div>
 
-                  {/* Content Section - Full width on mobile */}
-                  <div className="p-6 overflow-y-auto">
+                  {/* Content Section with adjusted padding for mobile */}
+                  <div className="p-6 pt-14 md:pt-6 overflow-y-auto"> {/* Added pt-14 for mobile */}
                     <DialogHeader>
                       <DialogTitle className="text-2xl font-bold text-white mb-2">
                         {selectedProject.title}
                       </DialogTitle>
                     </DialogHeader>
 
+                    {/* Rest of your content remains the same */}
                     <div className="space-y-4">
                       <p className="text-gray-300">
                         {selectedProject.dialog_description}
