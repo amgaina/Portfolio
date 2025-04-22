@@ -51,23 +51,7 @@ export default function Navbar() {
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-gradient-to-r from-black via-gray-900 to-black backdrop-blur-md py-2 border-b border-gray-700" : "bg-transparent py-4"}`}>
         <div className="container mx-auto px-6 max-w-7xl flex justify-between items-center">
-          <motion.a
-            href="#home"
-            className="flex items-center"
-            onClick={(e) => {
-              e.preventDefault()
-              scrollToSection("#home")
-            }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <img
-              src="./abhishek_logo.png"
-              alt="Logo"
-              className="h-10 w-auto md:h-12 hidden md:block" // Added hidden md:block
-            />
-          </motion.a>
-
-          <nav className="hidden md:flex space-x-4">
+          <nav className="hidden md:flex space-x-4 ml-auto">
             {navLinks.map((link) => (
               <motion.a
                 key={link.name}

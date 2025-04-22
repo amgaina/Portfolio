@@ -39,7 +39,7 @@ function VoteSection() {
 }
 
 export default async function BlogDetail({ params }: { params: { id: string } }) {
-    const num = params.id
+    const num = await params.id
     const blog = blogs.find(blog => blog.id === num)
 
     if (!blog) {

@@ -4,67 +4,79 @@
 
 @layer base {
   :root {
-    /* Updated background with a subtle warm gradient */
-    --background: 0 0% 100%; /* White base */
-    --foreground: 25 20% 20%; /* Dark brown for text */
+    /* Light theme - Futuristic with warm accents */
+    --background: 240 10% 98%; /* Very light slate */
+    --foreground: 240 10% 5%; /* Near-black */
 
-    --card: 40 20% 95%; /* Cream for cards */
-    --card-foreground: 25 30% 15%; /* Darker brown for card text */
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 240 10% 10%;
 
-    --popover: 40 20% 95%; /* Cream for popovers */
-    --popover-foreground: 25 30% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 10%;
 
-    --primary: 30 50% 60%; /* Warm brown primary */
-    --primary-foreground: 40 10% 98%; /* Off-white for contrast */
+    --primary: 217 91% 60%; /* Vibrant blue */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 180 30% 80%; /* Soft teal secondary */
-    --secondary-foreground: 25 20% 20%; /* Brown text on teal */
+    --secondary: 262 83% 58%; /* Purple for contrast */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 50 15% 90%; /* Light cream muted */
-    --muted-foreground: 25 15% 40%; /* Muted brown */
+    --muted: 240 10% 96%;
+    --muted-foreground: 240 3% 46%;
 
-    --accent: 45 70% 70%; /* Golden accent */
-    --accent-foreground: 25 30% 15%; /* Dark brown on gold */
+    --accent: 37 92% 55%; /* Golden accent */
+    --accent-foreground: 240 10% 10%;
 
-    --destructive: 0 70% 50%; /* Red for destructive actions */
-    --destructive-foreground: 0 0% 98%; /* White on red */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 30 20% 85%; /* Light brown border */
-    --input: 30 20% 85%; /* Matching input border */
-    --ring: 45 70% 70%; /* Golden focus ring */
+    --border: 240 5% 90%; /* Light gray border */
+    --input: 240 5% 90%;
+    --ring: 217 91% 60%; /* Blue focus ring */
 
-    --radius: 0.75rem; /* Slightly larger radius for modern feel */
+    --radius: 0.5rem;
   }
 
   .dark {
-    /* Dark mode with a brown-toned gradient */
-    --background: 25 20% 10%; /* Deep brown */
-    --foreground: 40 10% 95%; /* Cream text */
+    /* Dark theme - Cyberpunk inspired */
+    --background: 240 10% 8%; /* Deep slate */
+    --foreground: 240 10% 95%;
 
-    --card: 25 20% 15%; /* Darker brown cards */
-    --card-foreground: 40 10% 95%; /* Cream text */
+    --card: 240 10% 12%;
+    --card-foreground: 240 10% 95%;
 
-    --popover: 25 20% 15%;
-    --popover-foreground: 40 10% 95%;
+    --popover: 240 10% 12%;
+    --popover-foreground: 240 10% 95%;
 
-    --primary: 30 50% 70%; /* Lighter brown for dark mode */
-    --primary-foreground: 25 20% 10%; /* Dark brown text */
+    --primary: 217 91% 70%; /* Brighter blue */
+    --primary-foreground: 240 10% 95%;
 
-    --secondary: 180 25% 60%; /* Darker soft teal */
-    --secondary-foreground: 40 10% 95%; /* Cream text */
+    --secondary: 262 83% 68%; /* Brighter purple */
+    --secondary-foreground: 240 10% 95%;
 
-    --muted: 25 15% 25%; /* Muted dark brown */
-    --muted-foreground: 40 10% 70%; /* Lighter cream */
+    --muted: 240 10% 20%;
+    --muted-foreground: 240 10% 70%;
 
-    --accent: 45 60% 60%; /* Darker gold */
-    --accent-foreground: 25 20% 10%; /* Dark brown */
+    --accent: 37 92% 65%; /* Brighter gold */
+    --accent-foreground: 240 10% 95%;
 
-    --destructive: 0 60% 40%; /* Darker red */
+    --destructive: 0 84% 70%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 25 20% 30%; /* Dark brown border */
-    --input: 25 20% 30%;
-    --ring: 45 60% 60%; /* Darker gold ring */
+    --border: 240 10% 25%;
+    --input: 240 10% 25%;
+    --ring: 217 91% 70%;
+  }
+
+  .professional {
+    /* Alternate professional theme */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 15%;
+
+    --primary: 202 81% 44%; /* Professional blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 20% 98%;
+    --accent: 47 87% 54%; /* Gold accent */
   }
 }
 
@@ -73,60 +85,72 @@
     @apply border-border;
   }
   body {
-    @apply bg-gradient-to-br from-background via-[hsl(40,20%,95%)] to-[hsl(30,50%,90%)] text-foreground; /* Warm gradient background */
-    font-family: 'Inter', sans-serif; /* Modern sans-serif font */
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Inter', sans-serif;
   }
   html {
     scroll-behavior: smooth;
     max-width: 100vw;
     overflow-x: hidden;
   }
-  /* Typography enhancements */
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight text-foreground;
+
+  /* Enhanced typography */
+  h1 {
+    @apply text-4xl font-bold tracking-tight sm:text-5xl;
+  }
+  h2 {
+    @apply text-3xl font-bold tracking-tight sm:text-4xl;
+  }
+  h3 {
+    @apply text-2xl font-bold tracking-tight sm:text-3xl;
   }
   p {
     @apply text-muted-foreground leading-relaxed;
   }
-}
 
-/* Extra small screen size */
-@media (min-width: 475px) {
-  .xs\:text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-  .xs\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-  .xs\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-  }
-  .xs\:w-48 {
-    width: 12rem;
-  }
-  .xs\:h-48 {
-    height: 12rem;
-  }
-  .xs\:w-auto {
-    width: auto;
-  }
-  .xs\:flex-row {
-    flex-direction: row;
+  /* Smooth transitions */
+  a, button {
+    @apply transition-colors duration-200;
   }
 }
 
-/* Custom utilities for fancy effects */
 @layer utilities {
+  /* Futuristic effects */
   .gradient-text {
     @apply bg-gradient-to-r from-primary via-accent to-secondary text-transparent bg-clip-text;
   }
-  .shadow-elegant {
-    @apply shadow-lg hover:shadow-xl transition-shadow duration-300;
+  
+  .glow-effect {
+    @apply relative before:absolute before:-inset-1 before:bg-gradient-to-r before:from-primary/30 before:via-accent/30 before:to-secondary/30 before:blur-md before:rounded-lg;
   }
+  
   .border-gradient {
-    @apply border-2 border-transparent bg-gradient-to-r from-primary to-accent rounded-lg p-[2px];
+    @apply border border-transparent bg-clip-padding bg-origin-border bg-gradient-to-r from-primary to-accent;
   }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-xl;
+  }
+}
+
+/* Animation for interactive elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.hover-float:hover {
+  animation: float 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-full;
 }

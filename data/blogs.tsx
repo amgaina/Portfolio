@@ -208,5 +208,83 @@ export const blogs = [
         </div>
       </div>
       `
+  },
+  {
+    id: "hawkathon-2025",
+    title: "Organizing Annual Hawkathon 2025: Tech for Community",
+    excerpt: "Led the 3-day GDSC ULM Hawkathon 2025 as Vice President, empowering students to build AI solutions for community challenges.",
+    date: "March 15-17, 2025",
+    author: "Abhishek Amgain",
+    categories: ["Event Organization", "AI", "Leadership", "Community Building"],
+    readTime: "5 min read",
+    image: "hawkathon.png",
+    content: `
+    <section class="mb-8">
+      <p class="text-lg text-white leading-relaxed">As Vice President of GDSC ULM, orchestrating the <strong>2nd Annual Hawkathon</strong> with ACM Student Chapter was both challenging and immensely rewarding. Our theme <strong>"Tech for Community: Build with AI"</strong> brought together 60+ students to solve real-world problems through technology.</p>
+    </section>
+  
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-white border-b border-gray-700 pb-2">Event Highlights</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white/5 p-6 rounded-xl border border-gray-700 hover:border-blue-500 transition-all">
+          <h3 class="font-bold text-blue-400 mb-3">1. The Scale</h3>
+          <ul class="space-y-2 text-gray-300">
+            <li>• 60+ participants</li>
+            <li>• 15 projects submitted</li>
+            <li>• 10+ industry mentors</li>
+            <li>• 3 days of non-stop innovation</li>
+          </ul>
+        </div>
+        <div class="bg-white/5 p-6 rounded-xl border border-gray-700 hover:border-blue-500 transition-all">
+          <h3 class="font-bold text-blue-400 mb-3">2. My Role</h3>
+          <ul class="space-y-2 text-gray-300">
+            <li>• Master of Ceremonies (Day 1)</li>
+            <li>• Logistics coordination</li>
+            <li>• Judging criteria development</li>
+            <li>• Sponsor relations</li>
+          </ul>
+        </div>
+        <div class="bg-white/5 p-6 rounded-xl border border-gray-700 hover:border-blue-500 transition-all">
+          <h3 class="font-bold text-blue-400 mb-3">3. Impact</h3>
+          <ul class="space-y-2 text-gray-300">
+            <li>• Industry Level Projects </li>
+            <li>• Strengthened industry-academia ties</li>
+          </ul>
+        </div>
+      </div>
+  
+      <p class="text-gray-300">The energy during the final presentations was electric, especially when teams demonstrated their <code class="bg-gray-800 px-2 py-1 rounded">AI-powered solutions</code> for blood donation platforms, food distribution systems, and municipal citizen engagement tools.</p>
+    </section>
+  
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold mb-4 text-white border-b border-gray-700 pb-2">Key Learnings</h2>
+  
+      <p class="text-gray-300">Organizing this hackathon pushed my leadership abilities to new levels:</p>
+      
+      <ul class="list-disc pl-5 space-y-2 my-4 text-gray-300">
+        <li><strong>Crisis Management:</strong> Handling last-minute venue changes and tech issues</li>
+        <li><strong>Public Speaking:</strong> MC'ing for 100+ attendees boosted my confidence</li>
+        <li><strong>Team Leadership:</strong> Coordinating between 25 organizing committee members</li>
+        <li><strong>AI Curation:</strong> Ensuring projects maintained ethical AI standards</li>
+      </ul>
+  
+      <div class="bg-blue-900/20 p-6 rounded-xl border border-blue-700 mt-6">
+        <h3 class="font-bold text-blue-300 mb-3">Memorable Moment</h3>
+        <p class="text-gray-300">Seeing those impactful ideas and projects that can truly impact the society. </p>
+      </div>
+    </section>
+  
+    <div class="mt-8 pt-6 border-t border-gray-700">
+      <h3 class="font-bold text-blue-400 mb-3">Event Legacy</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-sm">#Hawkathon2025</span>
+        <span class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-sm">#AIForGood</span>
+        <span class="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-sm">#CommunityTech</span>
+        <span class="px-3 py-1 bg-yellow-500/10 text-yellow-400 rounded-full text-sm">#Leadership</span>
+        <span class="px-3 py-1 bg-red-500/10 text-red-400 rounded-full text-sm">#GDSC</span>
+      </div>
+    </div>
+    `
   }
 ];
