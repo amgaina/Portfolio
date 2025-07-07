@@ -18,9 +18,22 @@ export default function Experience() {
 
   const experiences = [
     {
+      title: "Web Developer Intern",
+      company: "Kinetix Solutions",
+      period: "May 2025 - current",
+      logo: "./kinetix-logo.png",
+      responsibilities: [
+        "Working on developing a full stack web application."
+      ],
+      skills: ["NextJs", "TailwindCSS", "Azure Cloud Services", "NextAuth"],
+      impact: "",
+      icon: <Rocket className="w-5 h-5 text-red-500" />
+
+    },
+    {
       title: "Software Engineer Intern",
       company: "IBM LED",
-      period: "Oct 2023 - Present",
+      period: "Oct 2023 - May 2025",
       responsibilities: [
         "Collaborated with peers on various software development projects, contributing to a 30% improvement in application efficiency",
         "Managed and optimized databases, improving query performance by 25%",
@@ -46,7 +59,7 @@ export default function Experience() {
       ],
       skills: ["Tableau", "Alteryx", "PowerBI", "Data Analysis"],
       logo: "./qatar_logo.png",
-      impact: "15% better decisions",
+      impact: "15% sales increase",
       icon: <BarChart2 className="w-5 h-5 text-red-500" />
     },
     {
@@ -244,7 +257,7 @@ export default function Experience() {
                         </div>
 
                         <ul className="space-y-2 md:space-y-3">
-                          {exp.responsibilities.map((item, i) => (
+                          {exp.responsibilities?.map((item, i) => (
                             <motion.li
                               key={i}
                               initial={{ opacity: 0, x: -10 }}
@@ -264,7 +277,7 @@ export default function Experience() {
                           Technologies Used
                         </h4>
                         <div className="flex flex-wrap gap-1 md:gap-2">
-                          {exp.skills.map((skill, i) => (
+                          {exp.skills?.map((skill, i) => (
                             <motion.div
                               key={i}
                               initial={{ opacity: 0, scale: 0.8 }}

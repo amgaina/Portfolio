@@ -286,5 +286,38 @@ export const blogs = [
       </div>
     </div>
     `
+  },
+  {
+    id: "nexus-tech-finalist",
+    title: "Finalist at Louisiana's Premier Nexus Technology Competition",
+    excerpt: "Showcased RhymeAI at Louisiana's first statewide tech competition, earning finalist honors among 80+ teams.",
+    date: "May 17, 2025",
+    author: "Abhishek Amgain",
+    categories: ["Artificial Intelligence", "Tech Competitions", "Innovation"],
+    readTime: "4 min read",
+    image: "RHYMEAI.png",
+    content: `
+    <div class="space-y-6">
+      <p class="text-lg text-white leading-relaxed">Presenting RhymeAI - our AI-powered 24/7 event host platform - at Louisiana's inaugural Nexus Technology Competition was a career-defining moment. Selected as a finalist from 80+ teams, we demonstrated how our solution revolutionizes virtual events through natural conversation flow and real-time engagement analytics.</p>
+
+      <div class="p-6 bg-white/5 rounded-xl border border-gray-700">
+        <h3 class="font-bold text-blue-400 mb-3">What Made RhymeAI Stand Out</h3>
+        <ul class="list-disc pl-5 space-y-2 text-gray-300">
+          <li>Context-aware memory system enabling coherent multi-session conversations</li>
+          <li>Seamless integration with Zoom, Teams and web platforms</li>
+          <li>Customizable personality profiles for different event types</li>
+          <li>Built-in moderation system addressing ethical AI concerns</li>
+        </ul>
+      </div>
+
+      <p class="text-gray-300">The competition's speaker sessions profoundly shaped my approach to AI development, particularly around responsible innovation. Networking with Louisiana's tech leaders provided invaluable feedback about scaling our solution while maintaining its human-centric design. Seeing investor interest in our platform validated the commercial potential we'd envisioned.</p>
+
+      <div class="flex flex-wrap gap-2 mt-6">
+        <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-sm">#AIInnovation</span>
+        <span class="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-sm">#TechShowcase</span>
+        <span class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-sm">#StartupJourney</span>
+      </div>
+    </div>
+    `
   }
 ];
