@@ -19,5 +19,5 @@ Visit the live site: [abhisekamgain.com.np](https://abhisekamgain.com.np)
 - **Animations**: Framer Motion
 - **Deployment**: Vercel, Cloudfare
 
-If you want to contact me, [abhisekamgain.com.np](https://abhisekamgain.com.np).
+If you want to contact me, [abhisekamgain.com](https://abhisekamgain.com.np).
 Send me a contact request. Lets get connected.
