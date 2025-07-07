@@ -2,7 +2,7 @@
 A modern, responsive portfolio website built with Next.js, showcasing my projects, skills, and professional journey. Fully optimized for performance and accessibility.
 
 ## 🚀 Live Demo
-Visit the live site: [abhisekamgain.com.np](https://abhisekamgain.com.np)
+Visit the live site: [abhisekamgain.com](https://abhisekamgain.com)
 
 ## ✨ Features
 - **Modern UI/UX** - Clean, professional design with smooth animations
@@ -19,5 +19,5 @@ Visit the live site: [abhisekamgain.com.np](https://abhisekamgain.com.np)
 - **Animations**: Framer Motion
 - **Deployment**: Vercel, Cloudfare
 
-If you want to contact me, [abhisekamgain.com](https://abhisekamgain.com.np).
+If you want to contact me, [abhisekamgain.com](https://abhisekamgain.com).
 Send me a contact request. Lets get connected.
