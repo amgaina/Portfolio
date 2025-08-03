@@ -1,285 +1,158 @@
 "use client"
 import { motion } from "framer-motion"
-import { Card, CardContent } from "./ui/card"
-import { Button } from "./ui/button"
 import {
-  Code,
-  Database,
-  LineChart,
-  Brain,
-  BarChart3,
-  Terminal,
-  PenTool,
-  Cpu,
-  Server,
-  Globe,
-  GitBranch,
-  MessageSquare,
-  Eye,
-  LayoutGrid,
-  FileCode,
-  Github,
+  Code, Database, Brain, Terminal, Cpu, Server, Globe, GitBranch,
+  MessageSquare, Eye, LayoutGrid, FileCode, Github, BarChart3, LineChart, AreaChart, Box
 } from "lucide-react"
-import { useEffect, useState } from "react"
+import { Suspense } from "react"
+import { Canvas } from "@react-three/fiber"
+import { Stars, Sparkles } from "@react-three/drei"
+import Link from "next/link"
+import { Button } from "./ui/button"
 
+// SKILLS DATA -- UPDATED WITH NEW SKILLS
+const skillCategories = [
+  {
+    name: "Programming Languages",
+    skills: [
+      { name: "Python", icon: <Code /> },
+      { name: "Java", icon: <FileCode /> },
+      { name: "JavaScript / TypeScript", icon: <Terminal /> },
+      { name: "SQL", icon: <Database /> },
+    ],
+  },
+  {
+    name: "Machine Learning & AI",
+    skills: [
+      { name: "ML Algorithms", icon: <Brain /> },
+      { name: "Natural Language Processing", icon: <MessageSquare /> },
+      { name: "Computer Vision (OpenCV)", icon: <Eye /> },
+      { name: "Databricks", icon: <Box /> }, // ADDED
+      { name: "Large Language Models", icon: <Terminal /> },
+    ],
+  },
+  {
+    name: "Frameworks & Libraries",
+    skills: [
+      { name: "TensorFlow & PyTorch", icon: <Cpu /> },
+      { name: "Scikit-Learn", icon: <LineChart /> },
+      { name: "Langchain & LlamaIndex", icon: <GitBranch /> },
+      { name: "Node.js", icon: <Server /> }, // ADDED
+      { name: "Next.js & React", icon: <Globe /> },
+    ],
+  },
+  {
+    name: "Developer & Data Tools",
+    skills: [
+      { name: "Unix / Linux Shell", icon: <Terminal /> },
+      { name: "Docker", icon: <Server /> },
+      { name: "Git & GitHub", icon: <Github /> },
+      { name: "Power BI", icon: <AreaChart /> }, // ADDED
+      { name: "Tableau", icon: <BarChart3 /> }, // ADDED
+    ],
+  },
+]
+
+// Main component
 export default function Skills() {
-  const [isClient, setIsClient] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
-
-  const skillCategories = [
-    {
-      name: "Programming",
-      skills: [
-        { name: "Python", icon: <Code className="h-5 w-5" /> },
-        { name: "Java", icon: <FileCode className="h-5 w-5" /> },
-        { name: "JavaScript", icon: <Terminal className="h-5 w-5" /> },
-        { name: "SQL", icon: <Database className="h-5 w-5" /> },
-      ],
-    },
-    {
-      name: "ML & AI",
-      skills: [
-        { name: "ML Algorithms", icon: <Brain className="h-5 w-5" /> },
-        { name: "NLP", icon: <MessageSquare className="h-5 w-5" /> },
-        { name: "LLMs", icon: <Terminal className="h-5 w-5" /> },
-        { name: "Computer Vision", icon: <Eye className="h-5 w-5" /> },
-        { name: "Spatial Analysis", icon: <LayoutGrid className="h-5 w-5" /> },
-      ],
-    },
-    {
-      name: "Frameworks",
-      skills: [
-        { name: "TensorFlow/PyTorch", icon: <Cpu className="h-5 w-5" /> },
-        { name: "Scikit-Learn", icon: <LineChart className="h-5 w-5" /> },
-        { name: "NumPy/Pandas", icon: <Database className="h-5 w-5" /> },
-        { name: "OpenCV/YOLO", icon: <PenTool className="h-5 w-5" /> },
-        { name: "Langchain", icon: <GitBranch className="h-5 w-5" /> },
-        { name: "NextJs", icon: <Globe className="h-5 w-5" /> },
-      ],
-    },
-    {
-      name: "Tools",
-      skills: [
-        { name: "Unix/Linux", icon: <Terminal className="h-5 w-5" /> },
-        { name: "Docker", icon: <Server className="h-5 w-5" /> },
-        { name: "Stats", icon: <BarChart3 className="h-5 w-5" /> },
-        { name: "Hypothesis Testing", icon: <LineChart className="h-5 w-5" /> },
-        { name: "Web Dev", icon: <Globe className="h-5 w-5" /> },
-      ],
-    },
-  ]
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  }
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10
-      }
-    },
-    hover: {
-      y: -5,
-      scale: 1.02,
-      transition: { duration: 0.2 }
-    }
-  }
 
   const sectionVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.1 },
+    }
+  };
+
+  const categoryVariants = {
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-      }
-    }
-  }
+      transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.05 }
+    },
+  };
 
-  // Predefined positions for the dots to avoid hydration mismatch
-  const dots = Array.from({ length: 10 }).map((_, i) => ({
-    id: i,
-    size: 3 + (i * 1),
-    left: Math.random() * 100,
-    top: Math.random() * 100,
-    y: (Math.random() - 0.5) * 30,
-    x: (Math.random() - 0.5) * 30,
-    duration: 8 + (i * 2)
-  }))
+  const orbVariants = {
+    hidden: { opacity: 0, scale: 0.5 },
+    visible: { opacity: 1, scale: 1 },
+    hover: {
+      scale: 1.1,
+      boxShadow: "0px 0px 20px rgba(255, 165, 0, 0.6)",
+      transition: { type: "spring", stiffness: 300, damping: 15 }
+    }
+  };
 
   return (
-    <section id="skills" className="py-12 md:py-24 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white overflow-hidden">
-      {/* Only render background dots on client side */}
-      {isClient && (
-        <div className="absolute inset-0 overflow-hidden opacity-10">
-          {dots.map((dot) => (
-            <motion.div
-              key={dot.id}
-              className="absolute rounded-full bg-red-400"
-              style={{
-                width: `${dot.size}px`,
-                height: `${dot.size}px`,
-                left: `${dot.left}%`,
-                top: `${dot.top}%`,
-              }}
-              animate={{
-                y: [0, dot.y],
-                x: [0, dot.x],
-                opacity: [0.2, 0.6, 0.2],
-              }}
-              transition={{
-                duration: dot.duration,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-        </div>
-      )}
+    <section id="skills" className="relative py-24 sm:py-32 bg-black text-white overflow-hidden">
+      {/* --- Thematic Star Background --- */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+          <Suspense fallback={null}>
+            <Stars radius={200} depth={60} count={12000} factor={7} saturation={0} fade speed={1} />
+            <Sparkles count={100} scale={10} size={3} speed={0.5} color="#ffae34" />
+          </Suspense>
+        </Canvas>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(10,5,0,0)_60%,_#000000_100%)]" />
+      </div>
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Title Section */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          variants={sectionVariants}
-          viewport={{ once: true }}
-          className="text-center mb-12 md:mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">
-            <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
-              My Skills
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+            Core Competencies
           </h2>
-          <motion.div
-            className="w-16 md:w-24 h-1 bg-gradient-to-r from-red-500 to-red-700 mx-auto rounded-full"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-          />
+          <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-red-600 mx-auto rounded-full" />
         </motion.div>
 
-        {/* Mobile Carousel */}
-        <div className="lg:hidden">
-          <motion.div
-            className="flex overflow-x-auto pb-6 -mx-4 px-4 snap-x snap-mandatory"
-            initial="hidden"
-            whileInView="show"
-            variants={container}
-            viewport={{ once: true }}
-          >
-            {skillCategories.map((category, categoryIndex) => (
-              <motion.div
-                key={categoryIndex}
-                className="w-[85vw] flex-shrink-0 snap-center px-2"
-                variants={item}
-              >
-                <Card className="h-full bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-red-500/30 transition-all shadow-lg">
-                  <CardContent className="p-4">
-                    <h3 className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
-                      {category.name}
-                    </h3>
-                    <div className="grid grid-cols-2 gap-3">
-                      {category.skills.map((skill, index) => (
-                        <motion.div
-                          key={index}
-                          whileHover="hover"
-                          variants={item}
-                          className="flex items-center p-2 rounded-lg bg-gray-800/50"
-                        >
-                          <div className="mr-2 p-2 bg-red-900/30 rounded-full border border-red-500/30 text-red-500">
-                            {skill.icon}
-                          </div>
-                          <div className="font-medium text-sm text-white truncate">
-                            {skill.name}
-                          </div>
-                        </motion.div>
-                      ))}
+        {/* Skills Grid */}
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-12"
+        >
+          {skillCategories.map((category) => (
+            <motion.div
+              key={category.name}
+              variants={categoryVariants}
+              className="rounded-2xl border border-orange-500/10 bg-neutral-900/40 p-6 backdrop-blur-md"
+            >
+              <h3 className="mb-6 text-2xl font-bold text-center text-orange-400">
+                {category.name}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {category.skills.map((skill) => (
+                  <motion.div
+                    key={skill.name}
+                    variants={orbVariants}
+                    whileHover="hover"
+                    className="flex flex-col items-center justify-center text-center p-2"
+                  >
+                    <div className="grid h-20 w-20 place-items-center rounded-full border-2 border-orange-500/20 bg-black/30 text-orange-400 transition-all duration-300 hover:bg-orange-500/10 hover:border-orange-500/50">
+                      <div className="h-8 w-8">{skill.icon}</div>
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-          <div className="text-center mt-2 text-sm text-gray-400">
-            ← Swipe to view more →
-          </div>
-        </div>
-
-        {/* Desktop Grid */}
-        <div className="hidden lg:block">
-          <motion.div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-16"
-            initial="hidden"
-            whileInView="show"
-            variants={container}
-            viewport={{ once: true }}
-          >
-            {skillCategories.map((category, categoryIndex) => (
-              <motion.div
-                key={categoryIndex}
-                variants={item}
-              >
-                <motion.h3
-                  className="text-xl md:text-2xl font-bold mb-6 text-center text-red-400"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  viewport={{ once: true }}
-                >
-                  {category.name}
-                </motion.h3>
-                <motion.div
-                  className="grid grid-cols-2 gap-4"
-                  variants={container}
-                >
-                  {category.skills.map((skill, index) => (
-                    <motion.div
-                      key={index}
-                      variants={item}
-                      whileHover="hover"
-                    >
-                      <Card className="h-full bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-red-500/30 transition-all shadow-lg">
-                        <CardContent className="p-4">
-                          <div className="flex items-center">
-                            <motion.div
-                              className="mr-3 p-2 bg-red-900/30 rounded-full border border-red-500/30 text-red-500"
-                              whileHover={{ rotate: 10 }}
-                            >
-                              {skill.icon}
-                            </motion.div>
-                            <div className="font-medium text-white">{skill.name}</div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+                    <p className="mt-3 text-sm font-medium text-neutral-300 break-words">
+                      {skill.name}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
         {/* GitHub Button */}
         <motion.div
-          className="text-center mt-8 md:mt-12"
+          className="text-center mt-20"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -287,20 +160,18 @@ export default function Skills() {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white shadow-lg hover:shadow-red-500/20 transition-all text-sm md:text-base"
+            className="rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-8 py-3.5 font-semibold text-white shadow-lg shadow-orange-500/20 transition-all hover:scale-105 hover:shadow-orange-500/30"
             asChild
           >
-            <a
+            <Link
               href="https://github.com/amgaina"
               target="_blank"
               rel="noopener noreferrer"
-              className="group"
+              className="group inline-flex items-center gap-2"
             >
-              <Github className="h-4 w-4 md:h-5 md:w-5 mr-2 group-hover:scale-110 transition-transform" />
-              <span className="group-hover:translate-x-1 transition-transform">
-                My GitHub Projects
-              </span>
-            </a>
+              <Github className="h-5 w-5 transition-transform group-hover:scale-110" />
+              <span>View My Work on GitHub</span>
+            </Link>
           </Button>
         </motion.div>
       </div>

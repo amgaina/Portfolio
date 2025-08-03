@@ -1,265 +1,272 @@
-"use client"
-import { useState, useEffect } from "react"
-import { Button } from "./ui/button"
-import { motion } from "framer-motion"
-import { ArrowDown, Github, Linkedin, Mail, Instagram } from "lucide-react"
-import Image from "next/image"
+"use client";
 
-export default function Hero() {
-  const [isMobile, setIsMobile] = useState(false)
-  const [isClient, setIsClient] = useState(false)
+import { useRef, useState, Suspense } from "react";
+import { motion, useInView } from "framer-motion";
+import { Github, Linkedin, Mail, ArrowRight, Code, BrainCircuit, GithubIcon } from "lucide-react";
+import Typewriter from 'typewriter-effect';
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Float, Stars, Sparkles, Points, PointMaterial } from "@react-three/drei";
+import { TextureLoader } from 'three';
+import * as THREE from 'three';
 
-  useEffect(() => {
-    setIsClient(true)
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
+// --- Social Links & Roles Data ---
+const socialLinks = [
+  { name: "GitHub", icon: <GithubIcon size={20} />, url: "https://github.com/amgaina" },
+  { name: "LinkedIn", icon: <Linkedin size={20} />, url: "https://www.linkedin.com/in/abhishek-amgain-04b642265/" },
+  { name: "Email", icon: <Mail size={20} />, url: "mailto:abhi.amgain567@gmail.com" },
+];
+
+const roles = ['Data Scientist', 'Full Stack Developer', 'AI Researcher'];
+
+
+// --- Interactive Celestial Planet Component ---
+const CelestialBody = () => {
+  const [colorMap] = useLoader(TextureLoader, ['/lava_texture.jpg']);
+  const planetRef = useRef<THREE.Group>(null!);
+
+  useFrame(({ clock, mouse }) => {
+    // Base rotation
+    planetRef.current.rotation.y = clock.getElapsedTime() * 0.05;
+
+    // Mouse-based rotation (lerped for smoothness)
+    const targetRotationX = -mouse.y * 0.2;
+    const targetRotationY = -mouse.x * 0.2;
+    planetRef.current.rotation.x = THREE.MathUtils.lerp(planetRef.current.rotation.x, targetRotationX, 0.05);
+    planetRef.current.rotation.y += THREE.MathUtils.lerp(0, targetRotationY, 0.05);
+  });
+
+  return (
+    <Float speed={1} rotationIntensity={0.1} floatIntensity={1.1}>
+      <group ref={planetRef}>
+        {/* Main planet body */}
+        <mesh scale={2.2}>
+          <sphereGeometry args={[1, 64, 64]} />
+          <meshStandardMaterial
+            map={colorMap}
+            metalness={0.1}
+            roughness={0.7}
+            emissiveMap={colorMap}
+            emissive={new THREE.Color("#ff5e00")}
+            emissiveIntensity={1.5}
+          />
+        </mesh>
+        {/* Atmosphere glow effect */}
+        <mesh scale={2.2}>
+          <sphereGeometry args={[1.04, 64, 64]} />
+          <shaderMaterial
+            uniforms={{
+              "c": { value: 0.1 },
+              "p": { value: 5.0 },
+              glowColor: { value: new THREE.Color("#ff8c00") },
+            }}
+            vertexShader={`
+              varying vec3 vNormal;
+              void main() {
+                vNormal = normalize( normalMatrix * normal );
+                gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+              }
+            `}
+            fragmentShader={`
+              uniform vec3 glowColor;
+              uniform float p;
+              uniform float c;
+              varying vec3 vNormal;
+              void main() {
+                float intensity = pow( c - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) ), p );
+                gl_FragColor = vec4( glowColor, 1.0 ) * intensity;
+              }
+            `}
+            blending={THREE.AdditiveBlending}
+            side={THREE.BackSide}
+            transparent
+          />
+        </mesh>
+      </group>
+    </Float>
+  );
+};
+
+// --- Planetary Ring Component (NO MAATH DEPENDENCY) ---
+const OrbitalRing = () => {
+  const ref = useRef<THREE.Points>(null!);
+
+  // Generate points in a torus shape using vanilla JS
+  const [points] = useState(() => {
+    const pointsArray = [];
+    const innerRadius = 3.5;
+    const outerRadius = 4;
+    const thickness = 0.1;
+    const count = 5000;
+
+    for (let i = 0; i < count; i++) {
+      // Random angle
+      const theta = Math.random() * 2 * Math.PI;
+      // Random radius between inner and outer radius
+      const r = innerRadius + Math.random() * (outerRadius - innerRadius);
+      // Position on the XY plane
+      const x = r * Math.cos(theta);
+      const y = r * Math.sin(theta);
+      // Random height within the thickness
+      const z = (Math.random() - 0.5) * thickness;
+
+      pointsArray.push(x, y, z);
     }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
+    return new Float32Array(pointsArray);
+  });
+
+  useFrame((state, delta) => {
+    ref.current.rotation.z -= delta * 0.1;
+  });
+
+  return (
+    <Points ref={ref} positions={points} stride={3} frustumCulled>
+      <PointMaterial
+        transparent
+        color="#FFA500"
+        size={0.015}
+        sizeAttenuation={true}
+        depthWrite={false}
+      />
+    </Points>
+  );
+};
+
+
+// --- Main Hero Component ---
+export default function Hero() {
+  const heroRef = useRef(null);
+  const isInView = useInView(heroRef, { once: true, amount: 0.3 });
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
-    }
-  }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
-  const skills = [
-    "Skilled in creating sales and marketing dashboards using data visualization tools like Tableau and PowerBI",
-    "Proficient in Python, TensorFlow, and scikit-learn, with strong data analysis and model development skills",
-    "Created a detailed repository on machine learning topics, demonstrating practical application of theory",
-    "Eager to keep learning and contribute to AI advancements",
-    "Work experience in software engineering with skills in ReactJS, Spring, Bootstrap, AWS, APIs, and SQL",
-    "Passionate about converging software development and AI/machine learning to drive innovation"
-  ]
-
-  const socialLinks = [
-    { icon: <Github size={20} />, url: "https://github.com/amgaina" },
-    { icon: <Linkedin size={20} />, url: "https://www.linkedin.com/in/abhishek-amgain-04b642265/" },
-    { icon: <Mail size={20} />, url: "abhi.amgain567@gmail.com" },
-    { icon: <Instagram size={20} />, url: "https://www.instagram.com/abhishekamgain/" }
-  ]
-
-  const backgroundElements = [
-    { id: 1, left: 10, top: 20, size: 8, y: 15, x: -10 },
-    { id: 2, left: 85, top: 15, size: 12, y: -20, x: 15 },
-    { id: 3, left: 30, top: 70, size: 10, y: 10, x: -15 },
-    { id: 4, left: 75, top: 60, size: 7, y: -15, x: 10 },
-    { id: 5, left: 20, top: 40, size: 9, y: 20, x: -5 },
-    { id: 6, left: 65, top: 30, size: 11, y: -10, x: 20 },
-    { id: 7, left: 40, top: 80, size: 6, y: 5, x: -20 },
-    { id: 8, left: 90, top: 50, size: 8, y: -25, x: 5 }
-  ]
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.2 } },
+  };
+  const itemVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80, damping: 15 } },
+  };
 
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col items-center justify-center relative bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white px-4 py-16 sm:py-0 overflow-hidden"
+      ref={heroRef}
+      className="relative min-h-screen w-full flex items-center justify-center bg-black overflow-hidden"
     >
-      {/* Preload the hero image */}
-      <link rel="preload" href="/abhishek_logo.png" as="image" />
-
-      {/* Animated background elements */}
-      {isClient && (
-        <div className="absolute inset-0 overflow-hidden opacity-10">
-          {backgroundElements.map((el) => (
-            <motion.div
-              key={el.id}
-              className="absolute rounded-full bg-red-500"
-              style={{
-                width: `${el.size}px`,
-                height: `${el.size}px`,
-                left: `${el.left}%`,
-                top: `${el.top}%`,
-              }}
-              animate={{
-                y: [0, el.y],
-                x: [0, el.x],
-                opacity: [0.2, 0.8, 0.2],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-        </div>
-      )}
-
-      <div className="container mx-auto z-10 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Text Content */}
-          <div className="order-2 lg:order-1 text-center lg:text-left">
-            {/* Social Links - Desktop Left Side */}
-            {isClient && (
-              <motion.div
-                className="hidden lg:flex flex-col space-y-6 fixed left-8 top-1/2 transform -translate-y-1/2 z-20"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.3 }}
-              >
-                {socialLinks.map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-800/50 hover:bg-red-600/80 rounded-full backdrop-blur-sm transition-colors"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    {link.icon}
-                  </motion.a>
-                ))}
-              </motion.div>
-            )}
-
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight">
-                <span className="bg-gradient-to-r from-red-500 to-red-700 bg-clip-text text-transparent">
-                  Abhishek Amgain
-                </span>
-              </h1>
-
-              <motion.h2
-                className="text-xl sm:text-2xl md:text-3xl text-gray-300 font-medium mb-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
-                AI & Machine Learning Enthusiast
-              </motion.h2>
-
-              <motion.p
-                className="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-              >
-                Transforming data into meaningful insights and building intelligent systems that solve real-world problems
-              </motion.p>
-
-              <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7, duration: 0.8 }}
-              >
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="bg-red-600 hover:bg-red-700 text-white font-semibold"
-                  onClick={() => scrollToSection("projects")}
-                >
-                  View My Work
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="bg-red-600 hover:bg-red-700 text-white font-semibold"
-                  onClick={() => scrollToSection("contact")}
-                >
-                  Contact Me
-                </Button>
-              </motion.div>
-
-              {/* Skills List - Desktop Only */}
-              <motion.div
-                className="hidden lg:block space-y-3 text-left"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.9, duration: 0.8 }}
-              >
-                {skills.map((skill, index) => (
-                  <div key={index} className="flex items-start">
-                    <span className="text-red-500 mr-2 mt-1">•</span>
-                    <p className="text-gray-400">{skill}</p>
-                  </div>
-                ))}
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* Right Column - Image (Optimized for LCP) */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end mb-8 lg:mb-0">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, x: 50 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative w-full max-w-md aspect-square"
-            >
-              <Image
-                src="/abhishek_logo.png"
-                alt="Abhishek Amgain"
-                width={500}
-                height={500}
-                priority
-                className="object-contain"
-                quality={85}
-                loading="eager"
-              />
-            </motion.div>
-          </div>
-        </div>
+      {/* --- PERFECT NIGHT SKY BACKGROUND --- */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+          <Suspense fallback={null}>
+            <Stars radius={200} depth={60} count={12000} factor={7} saturation={0} fade speed={1} />
+            <Sparkles count={100} scale={10} size={3} speed={0.5} color="#ffae34" />
+          </Suspense>
+        </Canvas>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(10,5,0,0)_60%,_#000000_100%)]" />
       </div>
 
-      {/* Social Links - Mobile */}
-      {isClient && (
+      {/* --- HERO CONTENT --- */}
+      <div className="container mx-auto px-5 relative z-10 flex flex-col-reverse lg:flex-row items-center justify-between h-full gap-10 pt-28 pb-12 lg:pt-0 lg:pb-0">
+        {/* LEFT: TEXT CONTENT */}
         <motion.div
-          className="lg:hidden flex justify-center space-x-6 mt-12 w-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.3 }}
-        >
-          {socialLinks.map((link, index) => (
-            <motion.a
-              key={index}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-gray-800/50 hover:bg-red-600/80 rounded-full backdrop-blur-sm transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              {link.icon}
-            </motion.a>
-          ))}
-        </motion.div>
-      )}
-
-      {/* Scroll Down Button */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5 }}
-      >
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-gray-400 hover:text-red-500 hover:bg-gray-800/50 rounded-full backdrop-blur-sm"
-          onClick={() => scrollToSection("about")}
-          aria-label="Scroll to About section"
+          className="w-full max-w-2xl text-center lg:text-left flex flex-col items-center lg:items-start"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
         >
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            variants={itemVariants}
+            className="mb-4 inline-flex items-center gap-3 rounded-full border border-orange-500/30 bg-black/40 px-4 py-2 text-sm text-orange-200 backdrop-blur-sm"
           >
-            <ArrowDown size={24} />
+            <BrainCircuit className="h-5 w-5 text-orange-300" />
+            <span className="font-medium">Digital Craftsmanship & Intelligence</span>
           </motion.div>
-        </Button>
-      </motion.div>
+          <motion.h1
+            variants={itemVariants}
+            className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+          >
+            <span className="text-white">Abhishek</span>
+            <br />
+            {/* --- Shimmer Effect --- */}
+            <span className="relative inline-block bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+              Amgain
+              <span className="absolute inset-0 bg-[linear-gradient(90deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_80%)] bg-[200%_100%] bg-clip-text animate-shimmer" />
+            </span>
+          </motion.h1>
+          <motion.div variants={itemVariants} className="mt-7 h-12">
+            <div className="flex items-center justify-center lg:justify-start gap-3">
+              <Code size={28} className="text-orange-400" />
+              <Typewriter
+                options={{
+                  strings: roles,
+                  autoStart: true,
+                  loop: true,
+                  wrapperClassName: "text-2xl md:text-3xl font-medium text-gray-200",
+                  cursorClassName: "text-orange-400"
+                }}
+              />
+            </div>
+          </motion.div>
+          <motion.p
+            variants={itemVariants}
+            className="mt-5 text-lg text-gray-300 leading-relaxed max-w-md mx-auto lg:mx-0"
+          >
+            Architecting intelligent digital universes where complex code and novel logic converge.
+          </motion.p>
+          <motion.div
+            variants={itemVariants}
+            className="mt-12 flex flex-col sm:flex-row items-center gap-6"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0px 0px 40px rgba(255, 140, 0, 0.5)" }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection("projects")}
+              className="group rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-8 py-3.5 font-semibold text-white shadow-lg shadow-orange-500/20 transition-all duration-300"
+            >
+              <span className="flex items-center gap-2">
+                Explore Projects
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform duration-300" />
+              </span>
+            </motion.button>
+            <div className="flex items-center gap-4">
+              {socialLinks.map((link) => (
+                <motion.a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.name}
+                  whileHover={{ y: -4 }}
+                  className="relative group p-2"
+                >
+                  {/* --- Hover Glow Effect --- */}
+                  <span className="absolute inset-0 rounded-full bg-orange-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-lg" />
+                  <span className="relative text-gray-400 group-hover:text-orange-300 transition-colors duration-300">
+                    {link.icon}
+                  </span>
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* --- RIGHT: INTERACTIVE CELESTIAL BODY --- */}
+        <div className="relative w-full max-w-xs sm:max-w-sm lg:max-w-lg h-[320px] sm:h-[360px] lg:h-[550px]">
+          <Canvas camera={{ position: [0, 0, 8], fov: 40 }}>
+            <Suspense fallback={null}>
+              <ambientLight intensity={0.4} color="#ffae34" />
+              <pointLight position={[10, 5, 10]} intensity={2} color="#ff8c00" />
+              <group rotation={[0, 0, -0.2]}> {/* Tilt the whole system */}
+                <CelestialBody />
+                <OrbitalRing />
+              </group>
+            </Suspense>
+          </Canvas>
+        </div>
+      </div>
     </section>
-  )
+  );
 }
