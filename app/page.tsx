@@ -9,7 +9,6 @@ import Research from "../components/research"
 import Contact from "../components/contact"
 import Blogs from "../components/blogs"
 import Papers from "../components/papers"
-import Navbar from "../components/navbar"
 import { useEffect, useState } from "react"
 import { AnimatePresence } from "framer-motion";
 import Preloader from "../components/preloader"
@@ -34,13 +33,12 @@ export default function Home() {
     };
   }, []);
   return (
-    <main className="bg-black min-h-screen">
+    <main className="min-h-screen">
       <AnimatePresence>
         {isLoading ? (
           <Preloader key="preloader" />
         ) : null}
       </AnimatePresence>
-      <Navbar />
       <Hero />
       <About />
       <Education />

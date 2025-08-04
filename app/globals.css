@@ -2,155 +2,156 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ================================================================================
+  1. THEME & COLOR PALETTE DEFINITIONS
+================================================================================ */
 @layer base {
   :root {
-    /* Light theme - Futuristic with warm accents */
-    --background: 240 10% 98%; /* Very light slate */
-    --foreground: 240 10% 5%; /* Near-black */
-
-    --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 240 10% 10%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 10%;
-
-    --primary: 217 91% 60%; /* Vibrant blue */
+    /* -- LIGHT THEME (Day Sky) - EDITED -- */
+    --background-start-hsl: 205 100% 75%; /* Brighter, more vibrant sky blue */
+    --background-end-hsl: 195 100% 85%; /* Lighter, horizon sky blue */
+    --background: hsl(var(--background-start-hsl)); /* Fallback */
+    --foreground: 222 47% 11%;
+    --card: 210 40% 96%;
+    --card-foreground: 222 47% 15%;
+    --popover: 210 40% 100%;
+    --popover-foreground: 222 47% 15%;
+    --primary: 24 95% 53%; /* Vibrant Orange */
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 262 83% 58%; /* Purple for contrast */
+    --secondary: 217 91% 60%;
     --secondary-foreground: 0 0% 100%;
-
-    --muted: 240 10% 96%;
-    --muted-foreground: 240 3% 46%;
-
-    --accent: 37 92% 55%; /* Golden accent */
-    --accent-foreground: 240 10% 10%;
-
+    --muted: 210 40% 94%;
+    --muted-foreground: 222 47% 40%;
+    --accent: 24 95% 53%;
+    --accent-foreground: 222 47% 11%;
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 5% 90%; /* Light gray border */
-    --input: 240 5% 90%;
-    --ring: 217 91% 60%; /* Blue focus ring */
-
-    --radius: 0.5rem;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 40% 88%;
+    --input: 210 40% 92%;
+    --ring: 24 95% 53%;
+    --radius: 0.75rem;
   }
 
   .dark {
-    /* Dark theme - Cyberpunk inspired */
-    --background: 240 10% 8%; /* Deep slate */
-    --foreground: 240 10% 95%;
-
-    --card: 240 10% 12%;
-    --card-foreground: 240 10% 95%;
-
-    --popover: 240 10% 12%;
-    --popover-foreground: 240 10% 95%;
-
-    --primary: 217 91% 70%; /* Brighter blue */
-    --primary-foreground: 240 10% 95%;
-
-    --secondary: 262 83% 68%; /* Brighter purple */
-    --secondary-foreground: 240 10% 95%;
-
-    --muted: 240 10% 20%;
-    --muted-foreground: 240 10% 70%;
-
-    --accent: 37 92% 65%; /* Brighter gold */
-    --accent-foreground: 240 10% 95%;
-
-    --destructive: 0 84% 70%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 10% 25%;
-    --input: 240 10% 25%;
-    --ring: 217 91% 70%;
-  }
-
-  .professional {
-    /* Alternate professional theme */
-    --background: 0 0% 100%;
-    --foreground: 240 10% 15%;
-
-    --primary: 202 81% 44%; /* Professional blue */
+    /* -- DARK THEME (Night Sky) -- */
+    --background-start-hsl: 222 47% 11%; /* Deep, dark blue */
+    --background-end-hsl: 240 30% 5%; /* Near black */
+    --background: hsl(var(--background-start-hsl)); /* Fallback */
+    --foreground: 210 40% 98%;
+    --card: 222 47% 14%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 24 95% 53%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 210 20% 98%;
-    --accent: 47 87% 54%; /* Gold accent */
+    --secondary: 217 91% 60%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 222 47% 18%;
+    --muted-foreground: 210 40% 60%;
+    --accent: 24 95% 53%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 47% 20%;
+    --input: 222 47% 20%;
+    --ring: 24 95% 53%;
   }
 }
 
+/* ================================================================================
+  2. BASE STYLES & ANIMATED BACKGROUNDS
+================================================================================ */
 @layer base {
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: 'Inter', sans-serif;
-  }
+
   html {
     scroll-behavior: smooth;
-    max-width: 100vw;
+  }
+
+  body {
+    @apply text-foreground;
+    background: linear-gradient(to bottom, hsl(var(--background-start-hsl)), hsl(var(--background-end-hsl)));
+    transition: background 0.8s ease-in-out;
+    min-height: 100vh;
     overflow-x: hidden;
   }
 
-  /* Enhanced typography */
-  h1 {
-    @apply text-4xl font-bold tracking-tight sm:text-5xl;
-  }
-  h2 {
-    @apply text-3xl font-bold tracking-tight sm:text-4xl;
-  }
-  h3 {
-    @apply text-2xl font-bold tracking-tight sm:text-3xl;
-  }
-  p {
-    @apply text-muted-foreground leading-relaxed;
+  /* --- Keyframes for Animations --- */
+  @keyframes move-background {
+    0% { background-position: 0 0; }
+    100% { background-position: 2000px 0; }
   }
 
-  /* Smooth transitions */
-  a, button {
-    @apply transition-colors duration-200;
+  @keyframes move-stars {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-2000px); }
   }
-}
 
-@layer utilities {
-  /* Futuristic effects */
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary via-accent to-secondary text-transparent bg-clip-text;
+  /* --- Background Containers --- */
+  .background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    transition: opacity 0.8s ease-in-out;
+  }
+
+  #day-sky, #night-sky {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  #clouds1 {
+    animation: move-background 120s linear infinite;
+    opacity: 0.4; /* Adjusted opacity */
+    top: 10%;
+  }
+  #clouds2 {
+    animation: move-background 90s linear infinite;
+    opacity: 0.2; /* Adjusted opacity */
+    top: 20%;
+  }
+  #clouds3 {
+    animation: move-background 60s linear infinite;
+    opacity: 0.6; /* Adjusted opacity */
+    top: -5%;
+  }
+
+  /* Dark mode: Stars */
+  #stars, #stars2, #stars3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #stars {
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Ccircle cx='10' cy='10' r='1' fill='white'/%3E%3C/svg%3E");
+    animation: move-stars 70s linear infinite;
+  }
+  #stars2 {
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Ccircle cx='100' cy='100' r='1.5' fill='white'/%3E%3C/svg%3E");
+    animation: move-stars 120s linear infinite;
+  }
+  #stars3 {
+    background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Ccircle cx='200' cy='200' r='2' fill='white'/%3E%3C/svg%3E");
+    animation: move-stars 180s linear infinite;
   }
   
-  .glow-effect {
-    @apply relative before:absolute before:-inset-1 before:bg-gradient-to-r before:from-primary/30 before:via-accent/30 before:to-secondary/30 before:blur-md before:rounded-lg;
-  }
-  
-  .border-gradient {
-    @apply border border-transparent bg-clip-padding bg-origin-border bg-gradient-to-r from-primary to-accent;
-  }
-  
-  .card-hover {
-    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-xl;
-  }
-}
-
-/* Animation for interactive elements */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-.hover-float:hover {
-  animation: float 2s ease-in-out infinite;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  @apply bg-background;
-}
-::-webkit-scrollbar-thumb {
-  @apply bg-primary rounded-full;
+  /* --- Theme Transition Logic --- */
+  .dark #day-sky { opacity: 0; }
+  .dark #night-sky { opacity: 1; }
+  html:not(.dark) #day-sky { opacity: 1; }
+  html:not(.dark) #night-sky { opacity: 0; }
 }
