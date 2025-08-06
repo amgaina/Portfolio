@@ -30,7 +30,7 @@ function HomeContent() {
         // Use a small timeout to ensure the layout is fully painted
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+        }, 10);
       }
     }
   }, [sectionToScroll]);
@@ -81,7 +81,7 @@ export default function Home() {
     const timer = setTimeout(() => {
       setIsLoading(false);
       document.body.style.overflow = 'auto';
-    }, 2500); // Set loading time to 2.5 seconds
+    }, 1000);
 
     return () => {
       clearTimeout(timer);

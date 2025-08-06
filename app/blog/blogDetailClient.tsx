@@ -19,7 +19,7 @@ export default function BlogDetailClient({ blog }: { blog: any }) {
             setIsLoading(false);
             // Restore scrolling after the preloader is gone
             document.body.style.overflow = 'auto';
-        }, 2500); // Set loading time to 2.5 seconds
+        }, 1000); // Set loading time to 2.5 seconds
 
         return () => {
             clearTimeout(timer);
