@@ -3,9 +3,6 @@
 import { motion } from "framer-motion"
 import { EducationCard } from "./educationCard" // Adjust path if needed
 import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js'
-import { Suspense } from "react"
-import { Canvas } from "@react-three/fiber"
-import { Stars, Sparkles } from "@react-three/drei"
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
