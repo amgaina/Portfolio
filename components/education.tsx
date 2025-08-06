@@ -12,7 +12,7 @@ const educationData = [
     degree: "High School (Science)",
     period: "2019 - 2021",
     location: "Gaindakot, Nepal",
-    logo: "/oxford_logo.png",
+    logo: "./oxford_logo.png",
     progress: 100,
     gpa: "3.82", // GPA Added
     radarData: {
@@ -30,7 +30,7 @@ const educationData = [
     degree: "B.S. in Computer Science",
     period: "2022 - August 2025 (Expected)", // Updated with current time context
     location: "Monroe, LA, USA",
-    logo: "/ulm_logo.png",
+    logo: "./ulm_logo.png",
     progress: 85,
     gpa: "4.0", // GPA Added
     radarData: {
