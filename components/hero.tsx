@@ -119,7 +119,7 @@ export default function Hero() {
             variants={itemVariants}
             className="text-5xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground"
           >
-            <span className="inline-block bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+            <span className="inline-block  pb-2 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
               Abhishek Amgain
             </span>
           </motion.h1>
