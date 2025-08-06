@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Calendar, MapPin, Lightbulb, Code, GraduationCap, Rocket, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react"; // Imported useEffect
+import { useState, useEffect } from "react";
 import LoadingSpinner from "@/components/preloader";
 
 // --- DATA ---
@@ -58,16 +58,14 @@ type JourneyStep = typeof journeySteps[0];
 // --- MAIN PAGE COMPONENT ---
 export default function AboutPage() {
     const [selectedStep, setSelectedStep] = useState<JourneyStep | null>(null);
-    // NEW: State to control the loading process
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Set a timer to hide the loader after 1 second
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 1000);
 
-        return () => clearTimeout(timer); // Cleanup the timer
+        return () => clearTimeout(timer);
     }, []);
 
     const containerVariants = {
@@ -85,12 +83,10 @@ export default function AboutPage() {
 
     return (
         <main className="relative w-full min-h-screen bg-transparent">
-            {/* The LoadingSpinner is now controlled by the AnimatePresence wrapper */}
             <AnimatePresence>
                 {isLoading && <LoadingSpinner />}
             </AnimatePresence>
 
-            {/* The main content is now wrapped and will only render after loading is complete */}
             {!isLoading && (
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -98,11 +94,11 @@ export default function AboutPage() {
                     transition={{ duration: 0.5, ease: "easeOut" }}
                 >
                     {/* Page Header */}
-                    <section className="container mx-auto px-4 pt-32 pb-16 text-center relative z-10">
+                    <section className="container mx-auto px-4 pt-24 sm:pt-32 pb-12 sm:pb-16 text-center relative z-10">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, ease: "easeOut" }} // Removed delay
+                            transition={{ duration: 0.5, ease: "easeOut" }}
                         >
                             <Link
                                 href="/?section=about"
@@ -121,7 +117,7 @@ export default function AboutPage() {
                     </section>
 
                     {/* Interactive Journey Nodes */}
-                    <section className="container mx-auto px-4 py-16 relative z-10">
+                    <section className="container mx-auto px-4 py-12 sm:py-16 relative z-10">
                         <motion.div
                             className="flex flex-wrap items-center justify-center gap-8 md:gap-16"
                             variants={containerVariants}
@@ -149,7 +145,7 @@ export default function AboutPage() {
                     </section>
 
                     {/* Footer Section */}
-                    <section className="container mx-auto px-4 py-24 text-center relative z-10">
+                    <section className="container mx-auto px-4 py-16 sm:py-24 text-center relative z-10">
                         <motion.div
                             initial="hidden"
                             whileInView="visible"
@@ -178,12 +174,13 @@ export default function AboutPage() {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                             >
+                                {/* UPDATED: Backdrop is now theme-aware */}
                                 <div
-                                    className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                                    className="absolute inset-0 bg-background/60 backdrop-blur-sm"
                                     onClick={() => setSelectedStep(null)}
                                 />
                                 <motion.div
-                                    className="relative w-full max-w-4xl max-h-[90vh] grid grid-cols-1 md:grid-cols-2 gap-6 rounded-2xl border border-border bg-background/80 shadow-2xl backdrop-blur-lg overflow-hidden"
+                                    className="relative w-full max-w-4xl max-h-[90vh] grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl border border-border bg-card shadow-2xl overflow-hidden"
                                     initial={{ scale: 0.9, opacity: 0 }}
                                     animate={{ scale: 1, opacity: 1 }}
                                     exit={{ scale: 0.9, opacity: 0 }}
@@ -197,8 +194,8 @@ export default function AboutPage() {
                                             className="object-cover"
                                         />
                                     </div>
-                                    <div className="p-8 flex flex-col overflow-y-auto">
-                                        <h3 className="text-3xl font-bold text-foreground mb-2">
+                                    <div className="p-6 sm:p-8 flex flex-col overflow-y-auto">
+                                        <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
                                             {selectedStep.title}
                                         </h3>
                                         <div className="mb-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
