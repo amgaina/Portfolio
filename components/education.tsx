@@ -80,28 +80,22 @@ export default function Education() {
   };
 
   return (
-    <section id="education" className="relative py-24 sm:py-32 bg-black text-white overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-          <Suspense fallback={null}>
-            <Stars radius={200} depth={60} count={12000} factor={7} saturation={0} fade speed={1} />
-            <Sparkles count={100} scale={10} size={3} speed={0.5} color="#ffae34" />
-          </Suspense>
-        </Canvas>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(10,5,0,0)_60%,_#000000_100%)]" />
-      </div>
+    <section id="education" className="relative py-24 sm:py-32 text-white overflow-hidden">
 
       <div className="container mx-auto px-4 relative">
         <motion.div
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
-            Academic Journey
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
+            Academic <span className="text-primary">Journey</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-red-600 mx-auto rounded-full" />
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            My educational background and the key skills I've developed along the way.
+          </p>
         </motion.div>
 
         <motion.div

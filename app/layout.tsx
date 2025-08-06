@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
+import NightSky from "@/components/nightSky";
+import DaySky from "@/components/daySky";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,16 +35,13 @@ export default function RootLayout({
         >
           {/* --- Animated Backgrounds Container --- */}
           <div className="background-container">
+            {/* Day sky remains CSS-based for performance */}
             <div id="day-sky">
-              <div id="stars"></div>
-              <div id="stars2"></div>
-              <div id="stars3"></div>
+              <DaySky />
             </div>
-            <div id="night-sky">
-              <div id="stars"></div>
-              <div id="stars2"></div>
-              <div id="stars3"></div>
-            </div>
+
+            {/* The new 3D Night Sky component is rendered here */}
+            <NightSky />
           </div>
 
           <Navbar />

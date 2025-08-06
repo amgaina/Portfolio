@@ -57,7 +57,7 @@ export const EducationCard = ({ edu, chartOptions }: EducationCardProps) => {
                             <h3 className="text-xl font-bold text-white">
                                 {edu.institution}
                             </h3>
-                            <p className="font-medium text-orange-400">{edu.degree}</p>
+                            <p className="font-medium text-white/80">{edu.degree}</p>
                         </div>
                     </motion.div>
 
