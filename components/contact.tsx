@@ -8,7 +8,8 @@ import { Card, CardContent } from "./ui/card";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { MapPin, Mail, Phone, Send, Loader2, AlertTriangle } from "lucide-react";
+import { MapPin, Mail, Phone, Send, Loader2, AlertTriangle, Download } from "lucide-react";
+import jsPDF from "jspdf";
 
 // --- NEW: Animated Checkmark Component ---
 const AnimatedCheckCircle = () => (
@@ -73,6 +74,51 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    // Add title
+    doc.setFontSize(22);
+    doc.setTextColor(40, 40, 40);
+    doc.text("Contact Form Submission", 105, 25, { align: 'center' });
+
+    // Add divider line
+    doc.setDrawColor(200, 200, 200);
+    doc.line(20, 35, 190, 35);
+
+    // Add submission details
+    doc.setFontSize(14);
+    doc.text("Thank you for your submission!", 105, 45, { align: 'center' });
+    doc.text("Here are the details you provided:", 105, 55, { align: 'center' });
+
+    // Add form data
+    doc.setFontSize(12);
+    doc.setTextColor(80, 80, 80);
+
+    let yPosition = 75;
+
+    doc.text(`Name: ${formData.name}`, 20, yPosition);
+    yPosition += 10;
+    doc.text(`Email: ${formData.email}`, 20, yPosition);
+    yPosition += 10;
+    doc.text(`Phone: ${formData.phone || 'Not provided'}`, 20, yPosition);
+    yPosition += 10;
+
+    // Handle multiline message
+    const splitMessage = doc.splitTextToSize(formData.message, 170);
+    doc.text("Message:", 20, yPosition);
+    yPosition += 10;
+    doc.text(splitMessage, 20, yPosition);
+
+    // Add footer
+    doc.setFontSize(10);
+    doc.setTextColor(150, 150, 150);
+    doc.text("Generated from contact form submission", 105, 280, { align: 'center' });
+
+    // Save the PDF
+    doc.save(`contact_submission_${formData.name.replace(/\s+/g, '_')}.pdf`);
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -96,6 +142,7 @@ export default function Contact() {
 
       if (result.success) {
         setShowSuccess(true);
+        generatePDF(); // Generate and download PDF
         setFormData({ name: "", email: "", phone: "", message: "" });
         setTimeout(() => setShowSuccess(false), 5000);
       } else {
@@ -109,7 +156,6 @@ export default function Contact() {
       setIsSubmitting(false);
     }
   };
-
   const contactInfo = [
     { icon: <MapPin className="h-6 w-6 text-primary" />, title: "Location", details: "Monroe, Louisiana, USA" },
     { icon: <Mail className="h-6 w-6 text-primary" />, title: "Email", details: "abhi.amgain567@gmail.com" },
@@ -125,7 +171,6 @@ export default function Contact() {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50, damping: 15 } },
   };
-
   return (
     <section id="contact" className="relative w-full bg-transparent py-24 sm:py-32">
       <div className="container mx-auto px-4">
@@ -188,6 +233,15 @@ export default function Contact() {
                         <AnimatedCheckCircle />
                         <h3 className="text-2xl font-bold text-center text-foreground mt-4">Thank You!</h3>
                         <p className="text-center text-muted-foreground mt-2">Your message has been sent successfully. I'll be in touch soon.</p>
+                        <p className="text-center text-muted-foreground mt-1">A PDF copy of your submission has been downloaded.</p>
+                        <Button
+                          onClick={generatePDF}
+                          variant="outline"
+                          className="mt-4"
+                        >
+                          <Download className="mr-2 h-4 w-4" />
+                          Download Again
+                        </Button>
                       </motion.div>
                     )}
                     {showError && (
