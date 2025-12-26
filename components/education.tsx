@@ -31,8 +31,8 @@ const educationData = [
     period: "2022 - August 2025 (Expected)", // Updated with current time context
     location: "Monroe, LA, USA",
     logo: "./ulm_logo.png",
-    progress: 85,
-    gpa: "4.0", // GPA Added
+    progress: 95,
+    gpa: "4.0",
     radarData: {
       labels: ['ML & AI', 'Math', 'Software Eng.', 'Data Structures', 'Algorithms'], // Shortened for clarity
       datasets: [{

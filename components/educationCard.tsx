@@ -1,11 +1,21 @@
 // components/EducationCard.tsx
 "use client"
+import dynamic from "next/dynamic"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "./ui/card"
 import { GraduationCap, MapPin, Calendar, BookOpen } from "lucide-react"
 import Image from "next/image"
 import { Progress } from "./ui/progress"
-import { Radar } from 'react-chartjs-2'
+
+// Dynamically load Radar chart only on client to avoid SSR/hydration issues and speed up initial load
+const Radar = dynamic(() => import('react-chartjs-2').then(mod => mod.Radar), {
+    ssr: false,
+    loading: () => (
+        <div className="h-full w-full flex items-center justify-center text-sm text-neutral-400">
+            Loading chart…
+        </div>
+    ),
+})
 
 // Define a type for the education data for better type safety
 type EducationStep = {
@@ -81,6 +91,7 @@ export const EducationCard = ({ edu, chartOptions }: EducationCardProps) => {
                             <h4 className="font-semibold text-white">Skills Snapshot</h4>
                         </div>
                         <div className="relative h-[calc(100%-2rem)] w-full">
+                            {/* Radar chart is dynamically imported to prevent heavy blocking in production/hydration errors */}
                             <Radar data={edu.radarData} options={chartOptions} />
                         </div>
                     </motion.div>

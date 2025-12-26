@@ -4,7 +4,6 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Award } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 // --- DATA ---
@@ -65,63 +64,52 @@ export default function Research() {
 
         {/* Presentations Grid */}
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.12 }}
         >
           {conferencePresentations.map((presentation, index) => (
-            <motion.div
+            <motion.article
               key={index}
               variants={itemVariants}
-              className="w-full h-full [perspective:1000px]"
+              className="flex"
             >
-              <motion.div
-                className="group relative w-full h-[480px] sm:h-[450px] rounded-2xl border border-border bg-background/50 shadow-xl backdrop-blur-lg [transform-style:preserve-3d] transition-all duration-300 overflow-hidden"
-              >
-                {/* Background Image with Parallax Effect */}
-                <motion.div className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">
-                  <Image
-                    src={presentation.image}
-                    alt={presentation.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </motion.div>
+              <div className="w-full">
+                <div className="group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-white/3 to-transparent dark:from-black/20 p-6 sm:p-8 shadow-lg transition hover:scale-[1.01]">
+                  {/* Decorative top stripe */}
+                  <div className="absolute -top-6 left-6 right-6 h-2 rounded-full bg-gradient-to-r from-indigo-500 via-pink-500 to-amber-400 opacity-80 blur-[6px]" />
 
-                {/* Gradient Overlay for Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+                  {/* Award badge */}
+                  {presentation.award && (
+                    <div className="absolute top-4 right-4 flex items-center gap-2 rounded-full bg-primary/90 px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm">
+                      <Award className="h-4 w-4" />
+                      <span>Winner</span>
+                    </div>
+                  )}
 
-                {/* Award Banner */}
-                {presentation.award && (
-                  <div className="absolute top-4 right-4 flex items-center gap-2 rounded-full bg-primary/90 px-3 py-1 text-xs font-semibold text-primary-foreground shadow-lg backdrop-blur-sm">
-                    <Award className="h-4 w-4" />
-                    <span>First Place Winner</span>
+                  <div className="relative z-10 flex flex-col gap-3">
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground">{presentation.title}</h3>
+                    <p className="text-sm text-muted-foreground">{presentation.shortDescription}</p>
+
+                    <div className="mt-3 flex items-center gap-3">
+                      <Link
+                        href={presentation.eventUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-foreground border border-white/10 hover:bg-white/20 transition"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        Details
+                      </Link>
+
+                      <span className="ml-auto text-xs text-muted-foreground">Event</span>
+                    </div>
                   </div>
-                )}
-
-                {/* Content */}
-                <div className="relative h-full flex flex-col justify-end p-6 text-white">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-2 [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)]">
-                    {presentation.title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-white/90 mb-6 [text-shadow:_0_1px_3px_rgba(0,0,0,0.4)]">
-                    {presentation.shortDescription}
-                  </p>
-                  <Link
-                    href={presentation.eventUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-white/30"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    View Event Details
-                  </Link>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </motion.article>
           ))}
         </motion.div>
       </div>

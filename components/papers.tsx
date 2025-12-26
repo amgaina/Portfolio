@@ -4,7 +4,6 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, FileText } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 // --- DATA ---
@@ -15,11 +14,6 @@ const papers = [
     imageUrl: "/cancer_journal_paper.png",
     link: "https://www.sciencepg.com/article/10.11648/j.ajcst.20250802.11",
   },
-  // Add more papers here in the future
-  // {
-  //   title: "Another Research Paper",
-  //   ...
-  // }
 ];
 
 // --- MAIN COMPONENT ---
@@ -62,58 +56,46 @@ export default function Papers() {
 
         {/* Papers Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.12 }}
         >
           {papers.map((paper, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="w-full [perspective:1000px]"
-            >
-              <motion.div
-                className="group relative w-full aspect-[4/5] sm:aspect-[1/1] lg:aspect-[4/5] rounded-2xl border border-border bg-background/50 shadow-xl backdrop-blur-lg [transform-style:preserve-3d] transition-all duration-300 overflow-hidden"
-              >
-                {/* Background Image with Parallax Effect */}
-                <motion.div className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">
-                  <Image
-                    src={paper.imageUrl}
-                    alt={paper.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </motion.div>
+            <motion.article key={index} variants={itemVariants} className="flex">
+              <div className="w-full">
+                <div className="group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-b from-white/3 to-transparent dark:from-black/20 p-6 sm:p-8 shadow-lg transition hover:scale-[1.01]">
+                  {/* Decorative accent */}
+                  <div className="absolute -top-6 left-6 right-6 h-1.5 rounded-full bg-gradient-to-r from-indigo-500 via-pink-500 to-amber-400 opacity-80 blur-[6px]" />
 
-                {/* Gradient Overlay for Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
-
-                {/* Content */}
-                <div className="relative h-full flex flex-col justify-end p-6 text-white">
-                  <div className="mb-4">
-                    <div className="p-3 rounded-full bg-primary/20 inline-block mb-3">
-                      <FileText className="h-6 w-6 text-primary" />
+                  <div className="relative z-10 flex flex-col gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-3 rounded-full bg-primary/20 inline-flex items-center justify-center">
+                        <FileText className="h-5 w-5 text-primary" />
+                      </div>
+                      <p className="text-sm font-medium text-primary">{paper.journal}</p>
                     </div>
-                    <p className="text-sm font-medium text-primary [text-shadow:_0_1px_2px_rgba(0,0,0,0.2)]">{paper.journal}</p>
+
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground">{paper.title}</h3>
+
+                    <div className="mt-2 flex items-center gap-3">
+                      <Link
+                        href={paper.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-foreground border border-white/10 hover:bg-white/20 transition"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        Read
+                      </Link>
+
+                      <span className="ml-auto text-xs text-muted-foreground">Published</span>
+                    </div>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold mb-4 [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)]">
-                    {paper.title}
-                  </h3>
-                  <Link
-                    href={paper.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md border border-white/20 transition-all duration-300 hover:bg-white/20 hover:border-white/30"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    Read Full Paper
-                  </Link>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </motion.article>
           ))}
         </motion.div>
       </div>

@@ -9,19 +9,44 @@ import Image from "next/image";
 // --- DATA ---
 const experiences = [
   {
+    title: "AI/Tech Intern",
+    company: "Mid South Extrusion",
+    period: "December 2025 - Present",
+    location: "Monroe, Louisiana",
+    logo: "/mse-logo.png",
+    responsibilities: [
+      "Applying AI solutions to streamline manufacturing workflows and support data-driven decision making across the organization.",
+      "Building workflow automations with Power Automate to reduce manual tasks, improve process reliability, and increase engagement for production and office teams.",
+      "Designing Retrieval-Augmented Generation (RAG) architectures and LLM-powered tools to turn internal documents and ERP data into practical assistants for engineering, operations, and leadership.",
+      "Collaborating with the IT and systems integration team on ERP systems to enhance reporting, integrate APIs, and develop intelligent features on top of Epicor and related platforms."
+    ],
+    skills: [
+      "Power Automate",
+      "ERP systems",
+      "SQL",
+      "C#",
+      "Power BI",
+      "Python",
+      "RAG",
+      "LLM",
+      "Algorithms",
+      "Machine Learning"
+    ],
+    isCurrent: true,
+  },
+  {
     title: "Web Developer Intern",
     company: "Kinetix Solutions",
-    period: "May 2025 - Present",
+    period: "May 2025 - December 2025",
     location: "Monroe, Louisiana",
     logo: "/kinetix-logo.png",
     responsibilities: [
-      "Developing and maintaining full-stack web applications using the Next.js framework and TypeScript.",
-      "Integrating Azure Cloud Services for scalable and reliable backend infrastructure.",
-      "Implementing secure payment processing with Stripe and managing user authentication via NextAuth.",
-      "Creating insightful data visualizations and dashboards using Power BI."
+      "Developed and maintained full-stack web applications using the Next.js framework and TypeScript.",
+      "Integrated Azure Cloud Services for scalable and reliable backend infrastructure.",
+      "Implemented secure payment processing with Stripe and managed user authentication via NextAuth.",
+      "Created insightful data visualizations and dashboards using Power BI."
     ],
     skills: ["Next.js", "TailwindCSS", "Azure", "NextAuth", "Stripe", "Power BI"],
-    isCurrent: true,
   },
   {
     title: "Software Engineer Intern",
@@ -35,19 +60,6 @@ const experiences = [
       "Engineered NLP-powered chatbots that enhanced customer engagement and support metrics.",
     ],
     skills: ["Python", "ML/DL", "Computer Vision", "SpringBoot", "React", "Power Apps"],
-  },
-  {
-    title: "Data Analyst Intern",
-    company: "Qatar Airways",
-    period: "May 2023 - Aug 2023",
-    location: "Remote",
-    logo: "/qatar_logo.png",
-    responsibilities: [
-      "Developed predictive data models that improved operational decision-making by 15%.",
-      "Identified key market trends, contributing to a 10% optimization in revenue streams.",
-      "Designed interactive dashboards using Tableau and Power BI for executive reporting.",
-    ],
-    skills: ["Tableau", "Alteryx", "PowerBI", "SQL", "Data Modeling"],
   },
   {
     title: "Tutor & Mentor",
